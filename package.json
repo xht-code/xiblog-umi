@@ -12,6 +12,7 @@
   "dependencies": {
     "@umijs/max": "4.0.0-rc.21",
     "antd": "^4.21.0",
+    "commitlint": "^17.0.2",
     "umi": "4.0.0-rc.21"
   },
   "devDependencies": {
@@ -34,7 +35,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "echo \"husky pre-commit\" && lint-staged"
+      "pre-commit": "echo \"husky pre-commit\" && lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   }
 }
