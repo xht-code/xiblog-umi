@@ -4,4 +4,11 @@ module.exports = {
     './src/components/**.tsx',
     './src/layouts/**.tsx',
   ],
+  theme: {
+    extend: {
+      colors: {
+        primary: 'var(--primary-color)',
+      },
+    },
+  },
 }
