@@ -1,7 +1,7 @@
 import { MenuOutlined } from '@ant-design/icons'
 import { Button, Drawer, Menu } from 'antd'
 import React, { useState } from 'react'
-import { Link, useLocation } from 'umi'
+import { history, useLocation } from 'umi'
 import routes from '../../config/routes'
 
 const NAVS = routes.filter((route) => route.isNav)
@@ -37,10 +37,8 @@ export default function GlobalHeader() {
             mode='horizontal'
           >
             {NAVS.map(({ title, path }) => (
-              <Menu.Item key={path}>
-                <Link key={path} to={path}>
-                  {title}
-                </Link>
+              <Menu.Item key={path} onClick={() => history.push(path)}>
+                {title}
               </Menu.Item>
             ))}
           </Menu>
