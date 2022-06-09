@@ -4,7 +4,9 @@ import { ListItemProps } from 'antd/lib/list'
 import styled from 'styled-components'
 import tw from 'tailwind-styled-components'
 
-export const InfoItem = tw(IconText)<IconTextProps>`mr-[10px] text-gray-400`
+export const InfoItem = tw(IconText)<IconTextProps>`
+  mr-[10px] text-[rgb(155,155,155)]
+`
 
 export const ListItem = styled(List.Item)<ListItemProps>`
   .ant-list-item-main {
