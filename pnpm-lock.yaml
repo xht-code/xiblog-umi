@@ -10,6 +10,7 @@ specifiers:
   '@types/styled-components': ^5.1.25
   '@umijs/max': 4.0.0-rc.21
   antd: ^4.21.0
+  classnames: ^2.3.1
   dayjs: ^1.11.3
   eslint: ^8.17.0
   husky: ^8.0.0
@@ -31,6 +32,7 @@ dependencies:
   '@ant-design/icons': 4.7.0_react@18.1.0
   '@umijs/max': 4.0.0-rc.21_cc2745c539dc4d144cc8bc2c092852ee
   antd: 4.21.0_react@18.1.0
+  classnames: 2.3.1
   dayjs: 1.11.3
   lodash: 4.17.21
   path-to-regexp: 6.2.1

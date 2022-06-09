@@ -1,4 +1,5 @@
-import IconText from '@/components/icon-text'
+// import IconText from '@/components/icon-text'
+import IconText, { IconTextProps } from '@/components/icon-text'
 import {
   ClockCircleOutlined,
   EyeOutlined,
@@ -12,7 +13,7 @@ import tw from 'tailwind-styled-components'
 import { useRequest } from 'umi'
 import ListItem from './list-item'
 
-const InfoItem = tw(IconText)`mr-[10px] text-gray-400`
+const InfoItem = tw(IconText)<IconTextProps>`mr-[10px] text-gray-400`
 
 export default function HomePage() {
   const {
@@ -55,7 +56,7 @@ export default function HomePage() {
         dataSource={data?.list}
         renderItem={(item) => (
           <ListItem
-            key={item.title}
+            key={item.id}
             className='flex-col-reverse sm:flex-row !px-0 sm:!px-[24px]'
             actions={[
               <IconText icon={EyeOutlined} text={item.pv} key='pv' />,
