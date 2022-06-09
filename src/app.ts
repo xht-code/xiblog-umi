@@ -1,12 +1,15 @@
-export function onRouteChange(opts: any) {
-  const { clientRoutes, location } = opts;
-  console.log("location: ", location);
+import { match } from 'path-to-regexp'
 
-  console.log("opts: ", opts);
-  console.log("clientRoutes: ", clientRoutes);
-  if (clientRoutes.length) {
-    const routes = [...clientRoutes];
-    const route = [...routes.pop().routes].pop();
-    document.title = route.id || "";
+export function onRouteChange(opts: any) {
+  const { routes, location } = opts
+  const allRoute = Object.values<any>(routes).filter(
+    (route) => route?.id !== '@@/global-layout',
+  )
+  const currentRoute = allRoute.find((route: any) =>
+    match(route.path)(location.pathname.replace(/^\/qy/, '') || '/'),
+  )
+  // 设置标题
+  if (currentRoute?.title) {
+    document.title = `${currentRoute.title} | XHT's Blog`
   }
 }
