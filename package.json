@@ -9,11 +9,6 @@
     "prepare": "husky install",
     "start": "npm run dev"
   },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,css,less}": [
       "npm run lint"
@@ -23,12 +18,13 @@
     "@ant-design/icons": "^4.7.0",
     "@umijs/max": "4.0.0-rc.21",
     "antd": "^4.21.0",
-    "commitlint": "^17.0.2",
     "path-to-regexp": "^6.2.1",
     "react": "^18",
     "umi": "4.0.0-rc.21"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.0.2",
+    "@commitlint/config-conventional": "^17.0.2",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "eslint": "^8.17.0",
