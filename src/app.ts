@@ -1,3 +1,4 @@
+import { message } from 'antd'
 import { match } from 'path-to-regexp'
 import { RequestConfig } from 'umi'
 import { IS_PROD } from './utils/env'
@@ -14,6 +15,24 @@ export const request: RequestConfig = {
   ]
     // 请求拦截器的顺序是反的
     .reverse(),
+  responseInterceptors: [
+    (response: any) => {
+      const { data } = response
+      if (data?.errCode) {
+        return Promise.reject(response)
+      }
+      return response
+    },
+  ],
+  errorConfig: {
+    errorHandler(err) {
+      console.log('errorHandler: ', err)
+
+      if (err?.data?.errMsg) {
+        message.error(err.data.errMsg)
+      }
+    },
+  },
 }
 
 export function onRouteChange(opts: any) {

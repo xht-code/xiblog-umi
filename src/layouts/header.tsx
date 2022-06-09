@@ -22,7 +22,7 @@ export default function GlobalHeader() {
   return (
     <>
       <header
-        className='fixed z-1000 top-0 w-full h-[64px] px-[20px] flex justify-between items-center
+        className='fixed z-[1000] top-0 w-full h-[64px] px-[20px] flex justify-between items-center
       bg-white shadow-lg shadow-[rgba(0,0,0,0.02)]'
       >
         <div className='flex items-center flex-1 overflow-hidden justify-between md:justify-start'>
