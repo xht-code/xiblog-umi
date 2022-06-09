@@ -1,4 +1,4 @@
-import { LikeOutlined, MessageOutlined, StarOutlined } from '@ant-design/icons'
+import { EyeOutlined, StarOutlined } from '@ant-design/icons'
 import { List, Space } from 'antd'
 import React from 'react'
 import styled from 'styled-components'
@@ -64,21 +64,8 @@ export default function HomePage() {
             <List.Item
               key={item.title}
               actions={[
-                <IconText
-                  icon={StarOutlined}
-                  text='156'
-                  key='list-vertical-star-o'
-                />,
-                <IconText
-                  icon={LikeOutlined}
-                  text='156'
-                  key='list-vertical-like-o'
-                />,
-                <IconText
-                  icon={MessageOutlined}
-                  text='2'
-                  key='list-vertical-message'
-                />,
+                <IconText icon={EyeOutlined} text={item.pv} key='pv' />,
+                <IconText icon={StarOutlined} text={item.star} key='star' />,
               ]}
               extra={
                 <img
