@@ -3,6 +3,13 @@ import routes from './routes'
 export default {
   title: "XHT's Blog",
   history: { type: 'hash' },
+  proxy: {
+    '/api': {
+      target: 'http://0.0.0.0:2022/',
+      changeOrigin: true,
+      pathRewrite: { '^/api': '' },
+    },
+  },
   routes,
   antd: {},
   request: {},
