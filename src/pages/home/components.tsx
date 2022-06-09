@@ -1,8 +1,12 @@
+import IconText, { IconTextProps } from '@/components/icon-text'
 import { List } from 'antd'
 import { ListItemProps } from 'antd/lib/list'
 import styled from 'styled-components'
+import tw from 'tailwind-styled-components'
 
-const ListItem = styled(List.Item)<ListItemProps>`
+export const InfoItem = tw(IconText)<IconTextProps>`mr-[10px] text-gray-400`
+
+export const ListItem = styled(List.Item)<ListItemProps>`
   .ant-list-item-main {
     display: flex;
     flex-direction: column;
@@ -19,5 +23,3 @@ const ListItem = styled(List.Item)<ListItemProps>`
     }
   }
 `
-
-export default ListItem

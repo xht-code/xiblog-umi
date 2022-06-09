@@ -1,5 +1,4 @@
-// import IconText from '@/components/icon-text'
-import IconText, { IconTextProps } from '@/components/icon-text'
+import IconText from '@/components/icon-text'
 import {
   ClockCircleOutlined,
   EyeOutlined,
@@ -9,11 +8,8 @@ import {
 import { List } from 'antd'
 import dayjs from 'dayjs'
 import React from 'react'
-import tw from 'tailwind-styled-components'
 import { useRequest } from 'umi'
-import ListItem from './list-item'
-
-const InfoItem = tw(IconText)<IconTextProps>`mr-[10px] text-gray-400`
+import { InfoItem, ListItem } from './components'
 
 export default function HomePage() {
   const {
@@ -57,7 +53,8 @@ export default function HomePage() {
         renderItem={(item) => (
           <ListItem
             key={item.id}
-            className='flex-col-reverse sm:flex-row !px-0 sm:!px-[24px]'
+            className='group flex-col-reverse sm:flex-row !px-0 sm:!px-[24px] 
+            transition duration-300 transition-direction-[0.3s] cursor-pointer hover:bg-[rgba(0,0,0,0.01)]'
             actions={[
               <IconText icon={EyeOutlined} text={item.pv} key='pv' />,
               <IconText icon={StarOutlined} text={item.star} key='star' />,
@@ -70,7 +67,7 @@ export default function HomePage() {
               />
             }
           >
-            <div className='text-[22px] font-500 flex-shrink-0'>
+            <div className='text-[22px] font-500 flex-shrink-0 transition duration-300 group-hover:text-primary'>
               {item.title}
             </div>
             <div className='mt-[5px] flex items-center'>
