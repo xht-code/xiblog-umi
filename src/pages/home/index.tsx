@@ -52,7 +52,7 @@ export default function HomePage() {
           <ListItem
             key={item.id}
             className='group flex-col-reverse sm:flex-row !px-0 sm:!px-[24px] 
-            transition duration-300 transition-direction-[0.3s] cursor-pointer hover:bg-[rgba(0,0,0,0.01)]'
+            transition-[background] duration-300 transition-direction-[0.3s] cursor-pointer hover:bg-[rgba(0,0,0,0.01)]'
             actions={[
               <IconText icon={EyeOutlined} text={item.pv} key='pv' />,
               <IconText icon={StarOutlined} text={item.star} key='star' />,
