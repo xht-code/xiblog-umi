@@ -9,10 +9,12 @@ specifiers:
   '@types/react-dom': ^18.0.0
   '@types/styled-components': ^5.1.25
   '@umijs/max': 4.0.0-rc.21
+  ahooks: ^3.4.1
   antd: ^4.21.0
   classnames: ^2.3.1
   dayjs: ^1.11.3
   eslint: ^8.17.0
+  eventemitter3: ^4.0.7
   husky: ^8.0.0
   lint-staged: ^13.0.0
   lodash: ^4.17.21
@@ -31,9 +33,11 @@ specifiers:
 dependencies:
   '@ant-design/icons': 4.7.0_react@18.1.0
   '@umijs/max': 4.0.0-rc.21_cc2745c539dc4d144cc8bc2c092852ee
+  ahooks: 3.4.1_react@18.1.0
   antd: 4.21.0_react@18.1.0
   classnames: 2.3.1
   dayjs: 1.11.3
+  eventemitter3: 4.0.7
   lodash: 4.17.21
   path-to-regexp: 6.2.1
   react: 18.1.0
@@ -1750,6 +1754,10 @@ packages:
       '@types/istanbul-lib-report': 3.0.0
     dev: false
 
+  /@types/js-cookie/2.2.7:
+    resolution: {integrity: sha512-aLkWa0C0vO5b4Sr798E26QgOkss68Un0bLjs7u9qxzPT5CG+8DuNTffWES58YzJs3hrVAOs1wonycqEBqNJubA==}
+    dev: false
+
   /@types/json-schema/7.0.11:
     resolution: {integrity: sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==}
     dev: false
@@ -2563,6 +2571,27 @@ packages:
       clean-stack: 2.2.0
       indent-string: 4.0.0
     dev: true
+
+  /ahooks-v3-count/1.0.0:
+    resolution: {integrity: sha512-V7uUvAwnimu6eh/PED4mCDjE7tokeZQLKlxg9lCTMPhN+NjsSbtdacByVlR1oluXQzD3MOw55wylDmQo4+S9ZQ==}
+    dev: false
+
+  /ahooks/3.4.1_react@18.1.0:
+    resolution: {integrity: sha512-PMxCDO6JsFdNrAyN3cW1J/2qt/vy2EJ/9KhxGOxj41hJhQddjgaBJjZKf/FrrnZmL+3yGPioZtbC4C7q7ru3yA==}
+    engines: {node: '>=8.0.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@types/js-cookie': 2.2.7
+      ahooks-v3-count: 1.0.0
+      dayjs: 1.11.3
+      intersection-observer: 0.12.0
+      js-cookie: 2.2.1
+      lodash: 4.17.21
+      react: 18.1.0
+      resize-observer-polyfill: 1.5.1
+      screenfull: 5.2.0
+    dev: false
 
   /ajv-keywords/3.5.2_ajv@6.12.6:
     resolution: {integrity: sha512-5p6WTN0DdTGVQk6VjcEju19IgaHudalcfabD7yhDGeA6bcQnmL+CpveLJq/3hvfwd1aof6L386Ougkx6RfyMIQ==}
@@ -4632,6 +4661,10 @@ packages:
       es5-ext: 0.10.61
     dev: false
 
+  /eventemitter3/4.0.7:
+    resolution: {integrity: sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw==}
+    dev: false
+
   /events/3.3.0:
     resolution: {integrity: sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==}
     engines: {node: '>=0.8.x'}
@@ -5323,6 +5356,10 @@ packages:
       side-channel: 1.0.4
     dev: false
 
+  /intersection-observer/0.12.0:
+    resolution: {integrity: sha512-2Vkz8z46Dv401zTWudDGwO7KiGHNDkMv417T5ItcNYfmvHR/1qCTVBO9vwH8zZmQ0WkA/1ARwpysR9bsnop4NQ==}
+    dev: false
+
   /intl-format-cache/4.3.1:
     resolution: {integrity: sha512-OEUYNA7D06agqPOYhbTkl0T8HA3QKSuwWh1HiClEnpd9vw7N+3XsQt5iZ0GUEchp5CW1fQk/tary+NsbF3yQ1Q==}
     dev: false
@@ -5718,6 +5755,10 @@ packages:
       '@types/node': 17.0.41
       merge-stream: 2.0.0
       supports-color: 8.1.1
+    dev: false
+
+  /js-cookie/2.2.1:
+    resolution: {integrity: sha512-HvdH2LzI/EAZcUwA8+0nKNtWHqS+ZmijLA30RwZA0bo7ToCckjK5MkGhjED9KoRcXO6BaGI3I9UIzSA1FKFPOQ==}
     dev: false
 
   /js-tokens/4.0.0:
@@ -8383,6 +8424,11 @@ packages:
       '@types/json-schema': 7.0.11
       ajv: 6.12.6
       ajv-keywords: 3.5.2_ajv@6.12.6
+    dev: false
+
+  /screenfull/5.2.0:
+    resolution: {integrity: sha512-9BakfsO2aUQN2K9Fdbj87RJIEZ82Q9IGim7FqM5OsebfoFC6ZHXgDq/KvniuLTPdeM8wY2o6Dj3WQ7KeQCj3cA==}
+    engines: {node: '>=0.10.0'}
     dev: false
 
   /scroll-into-view-if-needed/2.2.29:

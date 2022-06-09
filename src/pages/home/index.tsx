@@ -1,4 +1,6 @@
 import IconText from '@/components/icon-text'
+import { InfiniteScroll } from '@/components/infinite-scroll'
+import Event from '@/utils/event'
 import {
   ClockCircleOutlined,
   EyeOutlined,
@@ -11,16 +13,12 @@ import React from 'react'
 import { useRequest } from 'umi'
 import { InfoItem, ListItem } from './components'
 
+const getEventName = (page) => `PAGE_${page}_LOADED`
+
 export default function HomePage() {
   const {
     data,
-    loading,
-    pagination: {
-      total,
-      current: currentPage,
-      pageSize,
-      changeCurrent: setPage,
-    },
+    pagination: { totalPage, current: currentPage, changeCurrent: setPage },
   } = useRequest(
     ({ current, pageSize }) => {
       return {
@@ -30,8 +28,16 @@ export default function HomePage() {
     },
     {
       paginated: true,
-      formatResult: ({ data }) => {
-        return { list: data.articles, total: data.total }
+      defaultPageSize: 5,
+      formatResult: ({ data: res }) => {
+        return {
+          list:
+            currentPage === 1 ? res.articles : data?.list.concat(res.articles),
+          total: res.total,
+        }
+      },
+      onSuccess: (_data, [paginate]) => {
+        Event.emit(getEventName(paginate.current))
       },
     },
   )
@@ -41,14 +47,6 @@ export default function HomePage() {
       <List
         itemLayout='vertical'
         size='large'
-        pagination={{
-          hideOnSinglePage: true,
-          current: currentPage,
-          onChange: setPage,
-          pageSize,
-          total,
-        }}
-        loading={loading}
         dataSource={data?.list}
         renderItem={(item) => (
           <ListItem
@@ -80,6 +78,17 @@ export default function HomePage() {
             <div className='mt-[10px] flex-1 text-gray-600'>{item.intro}</div>
           </ListItem>
         )}
+      />
+
+      <InfiniteScroll
+        hasMore={currentPage < totalPage}
+        loadMore={async () => {
+          const page = currentPage + 1
+          setPage(page)
+          await new Promise((resolve) => {
+            Event.once(getEventName(page), resolve)
+          })
+        }}
       />
     </div>
   )
