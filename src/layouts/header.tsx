@@ -25,7 +25,7 @@ export default function GlobalHeader() {
         className='fixed z-[1000] top-0 w-full h-[64px] px-[20px] flex justify-between items-center
       bg-white shadow-lg shadow-[rgba(0,0,0,0.02)]'
       >
-        <div className='flex items-center flex-1 overflow-hidden justify-between md:justify-start'>
+        <div className='flex items-center flex-1 overflow-hidden justify-between sm:justify-start'>
           <div className='flex-shrink-0 text-[22px] text-primary'>
             XHT&apos;s Blog
           </div>
@@ -33,7 +33,7 @@ export default function GlobalHeader() {
           {/** PC */}
           <Menu
             activeKey={activeKey}
-            className='hidden md:flex flex-1 border-b-transparent px-[20px]'
+            className='hidden sm:flex flex-1 border-b-transparent px-[20px]'
             mode='horizontal'
           >
             {NAVS.map(({ title, path }) => (
@@ -46,13 +46,13 @@ export default function GlobalHeader() {
           {/** Mobile */}
           <Button
             type='link'
-            className='block md:hidden text-gray-500'
+            className='block sm:hidden text-gray-500'
             icon={<MenuOutlined />}
             onClick={handleOpen}
           />
         </div>
 
-        <div className='hidden md:flex-shrink-0'></div>
+        <div className='hidden sm:flex-shrink-0'></div>
       </header>
 
       <Drawer
