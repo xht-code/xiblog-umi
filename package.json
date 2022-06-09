@@ -9,6 +9,11 @@
     "prepare": "husky install",
     "start": "npm run dev"
   },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,css,less}": [
       "npm run lint"
