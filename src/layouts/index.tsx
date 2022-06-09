@@ -3,7 +3,7 @@ import { Outlet } from 'umi'
 import GlobalHeader from './header'
 
 export default function GlobalLayout() {
-  console.log('husky test 4')
+  console.log('husky test 6')
   return (
     <div className='!min-h-[100vh] flex flex-col'>
       <GlobalHeader />
