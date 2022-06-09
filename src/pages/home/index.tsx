@@ -1,24 +1,18 @@
-import { EyeOutlined, StarOutlined } from '@ant-design/icons'
+import IconText from '@/components/icon-text'
+import {
+  ClockCircleOutlined,
+  EyeOutlined,
+  StarOutlined,
+  UserOutlined,
+} from '@ant-design/icons'
 import { List } from 'antd'
-import { ListItemProps } from 'antd/lib/list'
+import dayjs from 'dayjs'
 import React from 'react'
-import styled from 'styled-components'
+import tw from 'tailwind-styled-components'
 import { useRequest } from 'umi'
+import ListItem from './list-item'
 
-const ListItem = styled(List.Item)<ListItemProps>`
-  .ant-list-item-main {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-`
-
-const IconText = ({ icon, text }: { icon: React.FC; text: string }) => (
-  <div className='flex items-center gap-[8px]'>
-    {React.createElement(icon)}
-    {text}
-  </div>
-)
+const InfoItem = tw(IconText)`mr-[10px] text-gray-400`
 
 export default function HomePage() {
   const {
@@ -62,20 +56,30 @@ export default function HomePage() {
         renderItem={(item) => (
           <ListItem
             key={item.title}
+            className='flex-col-reverse sm:flex-row !px-0 sm:!px-[24px]'
             actions={[
               <IconText icon={EyeOutlined} text={item.pv} key='pv' />,
               <IconText icon={StarOutlined} text={item.star} key='star' />,
             ]}
             extra={
               <img
-                className='w-[272px] h-[150px] object-cover'
+                className='w-full h-[200px] sm:w-[272px] sm:h-[150px] object-cover rounded-[10px]'
                 src={item.coverPic}
                 alt='cover'
               />
             }
           >
-            <h2 className='text-[22px] font-500 flex-shrink-0'>{item.title}</h2>
-            <article className='mt-[10px] flex-1'>{item.intro}</article>
+            <div className='text-[22px] font-500 flex-shrink-0'>
+              {item.title}
+            </div>
+            <div className='mt-[5px] flex items-center'>
+              <InfoItem icon={UserOutlined} text={item.author} />
+              <InfoItem
+                icon={ClockCircleOutlined}
+                text={dayjs(item.createTime).format('YYYY-MM-DD HH:mm:ss')}
+              />
+            </div>
+            <div className='mt-[10px] flex-1 text-gray-600'>{item.intro}</div>
           </ListItem>
         )}
       />

@@ -7,7 +7,7 @@ export default function useEnv() {
   const resize = useCallback(
     debounce(() => {
       const width = window.innerWidth
-      setIsMobile(width < 640)
+      setIsMobile(width <= 576)
     }, 200),
     [],
   )
