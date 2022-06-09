@@ -1,12 +1,11 @@
 import { EyeOutlined, StarOutlined } from '@ant-design/icons'
-import { List, Space } from 'antd'
+import { List } from 'antd'
+import { ListItemProps } from 'antd/lib/list'
 import React from 'react'
 import styled from 'styled-components'
 import { useRequest } from 'umi'
 
-const ListItemWrapper = styled.div`
-  border-bottom: 1px solid #f0f0f0;
-
+const ListItem = styled(List.Item)<ListItemProps>`
   .ant-list-item-main {
     display: flex;
     flex-direction: column;
@@ -15,10 +14,10 @@ const ListItemWrapper = styled.div`
 `
 
 const IconText = ({ icon, text }: { icon: React.FC; text: string }) => (
-  <Space>
+  <div className='flex items-center gap-[8px]'>
     {React.createElement(icon)}
     {text}
-  </Space>
+  </div>
 )
 
 export default function HomePage() {
@@ -52,6 +51,7 @@ export default function HomePage() {
         itemLayout='vertical'
         size='large'
         pagination={{
+          hideOnSinglePage: true,
           current: currentPage,
           onChange: setPage,
           pageSize,
@@ -60,27 +60,23 @@ export default function HomePage() {
         loading={loading}
         dataSource={data?.list}
         renderItem={(item) => (
-          <ListItemWrapper>
-            <List.Item
-              key={item.title}
-              actions={[
-                <IconText icon={EyeOutlined} text={item.pv} key='pv' />,
-                <IconText icon={StarOutlined} text={item.star} key='star' />,
-              ]}
-              extra={
-                <img
-                  className='w-[272px] h-[150px] object-cover'
-                  src={item.coverPic}
-                  alt='cover'
-                />
-              }
-            >
-              <h2 className='text-[22px] font-500 flex-shrink-0'>
-                {item.title}
-              </h2>
-              <article className='mt-[10px] flex-1'>{item.intro}</article>
-            </List.Item>
-          </ListItemWrapper>
+          <ListItem
+            key={item.title}
+            actions={[
+              <IconText icon={EyeOutlined} text={item.pv} key='pv' />,
+              <IconText icon={StarOutlined} text={item.star} key='star' />,
+            ]}
+            extra={
+              <img
+                className='w-[272px] h-[150px] object-cover'
+                src={item.coverPic}
+                alt='cover'
+              />
+            }
+          >
+            <h2 className='text-[22px] font-500 flex-shrink-0'>{item.title}</h2>
+            <article className='mt-[10px] flex-1'>{item.intro}</article>
+          </ListItem>
         )}
       />
     </div>
