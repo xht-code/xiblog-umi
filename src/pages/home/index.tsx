@@ -1,5 +1,6 @@
 import IconText from '@/components/icon-text'
 import { InfiniteScroll } from '@/components/infinite-scroll'
+import useEnv from '@/hooks/useEnv'
 import Event from '@/utils/event'
 import {
   ClockCircleOutlined,
@@ -7,23 +8,26 @@ import {
   StarOutlined,
   UserOutlined,
 } from '@ant-design/icons'
-import { List } from 'antd'
+import { List, Skeleton } from 'antd'
 import dayjs from 'dayjs'
-import React from 'react'
+import React, { useState } from 'react'
 import { useRequest } from 'umi'
 import { InfoItem, ListItem } from './components'
 
 const getEventName = (page) => `PAGE_${page}_LOADED`
 
 export default function HomePage() {
+  const [hasMore, setHasMore] = useState(false)
+
   const {
     data,
-    pagination: { totalPage, current: currentPage, changeCurrent: setPage },
+    pagination: { current: currentPage, changeCurrent: setPage },
   } = useRequest(
     ({ current, pageSize }) => {
       return {
-        method: 'GET',
-        url: `/article/page/${current}/size/${pageSize}`,
+        method: 'POST',
+        url: '/article/no-content',
+        data: { page: current, pageSize },
       }
     },
     {
@@ -31,28 +35,35 @@ export default function HomePage() {
       defaultPageSize: 5,
       formatResult: ({ data: res }) => {
         return {
-          list:
-            currentPage === 1 ? res.articles : data?.list.concat(res.articles),
-          total: res.total,
+          ...res,
+          list: currentPage === 1 ? res.list : data!.list.concat(res.list),
         }
       },
-      onSuccess: (_data, [paginate]) => {
-        Event.emit(getEventName(paginate.current))
+      onSuccess: (res) => {
+        setHasMore(res.page < res.totalPage)
+        Event.emit(getEventName(res.page))
       },
     },
   )
+
+  const { isMobile } = useEnv()
+
+  if (!data) {
+    return Array(5).fill(<Skeleton className='mb-[40px]' active />)
+  }
 
   return (
     <div>
       <List
         itemLayout='vertical'
         size='large'
-        dataSource={data?.list}
+        dataSource={data.list}
         renderItem={(item) => (
           <ListItem
             key={item.id}
             className='group flex-col-reverse sm:flex-row !px-0 sm:!px-[24px] 
-            transition-[background] duration-300 transition-direction-[0.3s] cursor-pointer hover:bg-[rgba(0,0,0,0.01)]'
+              transition-[background] duration-300 transition-direction-[0.3s] 
+              cursor-pointer hover:bg-[rgba(0,0,0,0.01)]'
             actions={[
               <IconText icon={EyeOutlined} text={item.pv} key='pv' />,
               <IconText icon={StarOutlined} text={item.star} key='star' />,
@@ -72,7 +83,9 @@ export default function HomePage() {
               <InfoItem icon={UserOutlined} text={item.author} />
               <InfoItem
                 icon={ClockCircleOutlined}
-                text={dayjs(item.createTime).format('YYYY-MM-DD HH:mm:ss')}
+                text={dayjs(item.createTime).format(
+                  isMobile ? 'MM-DD HH:mm' : 'YYYY-MM-DD HH:mm:ss',
+                )}
               />
             </div>
             <div className='mt-[10px] flex-1 text-gray-600'>{item.intro}</div>
@@ -81,11 +94,13 @@ export default function HomePage() {
       />
 
       <InfiniteScroll
-        hasMore={currentPage < totalPage}
-        loadMore={async () => {
+        hasMore={hasMore}
+        loadMore={() => {
           const page = currentPage + 1
           setPage(page)
-          await new Promise((resolve) => {
+
+          // 等待请求完成
+          return new Promise((resolve) => {
             Event.once(getEventName(page), resolve)
           })
         }}

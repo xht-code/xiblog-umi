@@ -14,6 +14,7 @@ export default function useEnv() {
 
   useEffect(() => {
     window.addEventListener('resize', resize, false)
+    resize()
 
     return () => {
       window.removeEventListener('resize', resize, false)
