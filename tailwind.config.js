@@ -3,6 +3,9 @@ module.exports = {
     enabled: process.env.NODE_ENV === 'production',
   },
   content: ['./src/**/*.tsx'],
+  corePlugins: {
+    preflight: false,
+  },
   theme: {
     extend: {
       colors: {

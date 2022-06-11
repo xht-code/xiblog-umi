@@ -50,9 +50,11 @@ export default function HomePage() {
   const { isMobile } = useEnv()
 
   if (!data) {
-    return Array(5).map((_value, index) => (
-      <Skeleton key={index} className='mb-[40px]' active />
-    ))
+    return Array(5)
+      .fill(0)
+      .map((_value, index) => (
+        <Skeleton key={index} className='mb-[40px]' active />
+      ))
   }
 
   return (

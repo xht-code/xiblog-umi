@@ -1,3 +1,4 @@
+import LoginModal from '@/components/login-modal'
 import { MenuOutlined } from '@ant-design/icons'
 import { history, useLocation } from '@umijs/max'
 import { Button, Drawer, Menu } from 'antd'
@@ -22,40 +23,51 @@ export default function GlobalHeader() {
   return (
     <>
       <header
-        className='fixed z-[1000] top-0 w-full h-[64px] px-[20px] flex justify-between items-center
-      bg-white shadow-lg shadow-[rgba(0,0,0,0.02)]'
+        className='fixed z-[1000] top-0 left-0 right-0 flex justify-center 
+        bg-white shadow-lg shadow-[rgba(0,0,0,0.02)]'
       >
-        <div className='flex items-center flex-1 overflow-hidden justify-between sm:justify-start'>
-          <div
-            className='flex-shrink-0 text-[22px] font-semibold text-primary cursor-pointer'
-            onClick={() => history.push('/')}
-          >
-            XHT&apos;s Blog
+        <div className='w-full max-w-[1280px] h-[64px] max-auto px-[20px] flex justify-between items-center'>
+          <div className='h-full flex items-center flex-1 overflow-hidden justify-between sm:justify-start'>
+            <div
+              className='flex-shrink-0 text-[22px] font-semibold text-primary cursor-pointer'
+              onClick={() => history.push('/')}
+            >
+              XHT&apos;s Blog
+            </div>
+
+            {/** PC */}
+            <Menu
+              activeKey={activeKey}
+              className='hidden sm:flex flex-1 h-full border-b-transparent px-[20px]'
+              mode='horizontal'
+            >
+              {NAVS.map(({ title, path }) => (
+                <Menu.Item
+                  key={path}
+                  className='!flex items-center'
+                  onClick={() => history.push(path)}
+                >
+                  {title}
+                </Menu.Item>
+              ))}
+            </Menu>
+
+            {/** Mobile */}
+            <Button
+              type='link'
+              className='block sm:hidden text-gray-500'
+              icon={<MenuOutlined />}
+              onClick={handleOpen}
+            />
           </div>
 
-          {/** PC */}
-          <Menu
-            activeKey={activeKey}
-            className='hidden sm:flex flex-1 border-b-transparent px-[20px]'
-            mode='horizontal'
-          >
-            {NAVS.map(({ title, path }) => (
-              <Menu.Item key={path} onClick={() => history.push(path)}>
-                {title}
-              </Menu.Item>
-            ))}
-          </Menu>
-
-          {/** Mobile */}
-          <Button
-            type='link'
-            className='block sm:hidden text-gray-500'
-            icon={<MenuOutlined />}
-            onClick={handleOpen}
-          />
+          <div className='hidden sm:flex sm:flex-shrink-0 gap-x-[10px]'>
+            <LoginModal>
+              <Button type='primary'>登录</Button>
+            </LoginModal>
+            <Button type='link'>注册</Button>
+          </div>
         </div>
-
-        <div className='hidden sm:flex-shrink-0'></div>
       </header>
 
       <Drawer

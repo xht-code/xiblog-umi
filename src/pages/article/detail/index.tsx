@@ -49,8 +49,11 @@ export default function Page() {
   return (
     <div>
       <h1 className='text-[26px] sm:text-[32px] font-semibold'>{data.title}</h1>
-      <div className='mt-[5px] text-[16px] flex items-center flex-wrap gap-y-[5px]'>
-        <InfoItem icon={UserOutlined} text={data.author} />
+      <div className='mt-[5px] sm:mt-[10px] text-[16px] flex items-center flex-wrap gap-y-[5px]'>
+        <InfoItem
+          icon={UserOutlined}
+          text={<Link to={`/user/`}>{data.author}</Link>}
+        />
         <InfoItem icon={ClockCircleOutlined} text={data.createTime} />
         <InfoItem
           icon={TagsOutlined}
