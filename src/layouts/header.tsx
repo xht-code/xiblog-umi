@@ -1,4 +1,5 @@
 import LoginModal from '@/components/login-modal'
+import useEnv from '@/hooks/useEnv'
 import { MenuOutlined } from '@ant-design/icons'
 import { history, useLocation } from '@umijs/max'
 import { Button, Drawer, Menu } from 'antd'
@@ -10,6 +11,8 @@ const NAVS = routes.filter((route) => route.isNav)
 export default function GlobalHeader() {
   const location = useLocation()
   const [visible, setVisible] = useState(false)
+
+  const { isMobile } = useEnv()
 
   const activeKey =
     NAVS.find((nav) =>
@@ -35,30 +38,30 @@ export default function GlobalHeader() {
               XHT&apos;s Blog
             </div>
 
-            {/** PC */}
-            <Menu
-              activeKey={activeKey}
-              className='hidden sm:flex flex-1 h-full !border-b-transparent !px-[20px]'
-              mode='horizontal'
-            >
-              {NAVS.map(({ title, path }) => (
-                <Menu.Item
-                  key={path}
-                  className='!flex items-center'
-                  onClick={() => history.push(path)}
-                >
-                  {title}
-                </Menu.Item>
-              ))}
-            </Menu>
-
-            {/** Mobile */}
-            <Button
-              type='link'
-              className='sm:!hidden text-gray-500'
-              icon={<MenuOutlined />}
-              onClick={handleOpen}
-            />
+            {!isMobile ? (
+              <Menu
+                activeKey={activeKey}
+                className='flex flex-1 h-full !border-b-transparent !px-[20px]'
+                mode='horizontal'
+              >
+                {NAVS.map(({ title, path }) => (
+                  <Menu.Item
+                    key={path}
+                    className='!flex items-center'
+                    onClick={() => history.push(path)}
+                  >
+                    {title}
+                  </Menu.Item>
+                ))}
+              </Menu>
+            ) : (
+              <Button
+                type='link'
+                className='text-gray-500'
+                icon={<MenuOutlined />}
+                onClick={handleOpen}
+              />
+            )}
           </div>
 
           <div className='hidden sm:flex sm:flex-shrink-0 gap-x-[10px]'>
