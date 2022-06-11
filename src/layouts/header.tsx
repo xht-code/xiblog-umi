@@ -38,7 +38,7 @@ export default function GlobalHeader() {
             {/** PC */}
             <Menu
               activeKey={activeKey}
-              className='hidden sm:flex flex-1 h-full !border-b-transparent px-[20px]'
+              className='hidden sm:flex flex-1 h-full !border-b-transparent !px-[20px]'
               mode='horizontal'
             >
               {NAVS.map(({ title, path }) => (
