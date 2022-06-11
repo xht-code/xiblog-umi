@@ -21,17 +21,21 @@
     "ahooks": "^3.4.1",
     "antd": "^4.21.0",
     "classnames": "^2.3.1",
+    "crypto-js": "^4.1.1",
     "dayjs": "^1.11.3",
     "eventemitter3": "^4.0.7",
     "lodash": "^4.17.21",
     "path-to-regexp": "^6.2.1",
     "react": "^18",
-    "styled-components": "^5.3.5",
-    "umi": "4.0.0-rc.21"
+    "react-markdown": "^8.0.3",
+    "rehype-highlight": "^5.0.2",
+    "remark-gfm": "^3.0.1",
+    "styled-components": "^5.3.5"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.2",
     "@commitlint/config-conventional": "^17.0.2",
+    "@types/crypto-js": "^4.1.1",
     "@types/lodash": "^4.14.182",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",

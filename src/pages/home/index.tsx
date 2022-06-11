@@ -8,10 +8,11 @@ import {
   StarOutlined,
   UserOutlined,
 } from '@ant-design/icons'
+import { history, useRequest } from '@umijs/max'
 import { List, Skeleton } from 'antd'
 import dayjs from 'dayjs'
 import React, { useState } from 'react'
-import { useRequest } from 'umi'
+
 import { InfoItem, ListItem } from './components'
 
 const getEventName = (page) => `PAGE_${page}_LOADED`
@@ -49,7 +50,9 @@ export default function HomePage() {
   const { isMobile } = useEnv()
 
   if (!data) {
-    return Array(5).fill(<Skeleton className='mb-[40px]' active />)
+    return Array(5).map((_value, index) => (
+      <Skeleton key={index} className='mb-[40px]' active />
+    ))
   }
 
   return (
@@ -75,8 +78,9 @@ export default function HomePage() {
                 alt='cover'
               />
             }
+            onClick={() => history.push(`/article/${item.id}`)}
           >
-            <div className='text-[22px] font-500 flex-shrink-0 transition duration-300 group-hover:text-primary'>
+            <div className='text-[22px] font-semibold flex-shrink-0 transition duration-300 group-hover:text-primary'>
               {item.title}
             </div>
             <div className='mt-[5px] flex items-center'>

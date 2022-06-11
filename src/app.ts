@@ -1,6 +1,6 @@
+import { RequestConfig } from '@umijs/max'
 import { message } from 'antd'
 import { match } from 'path-to-regexp'
-import { RequestConfig } from 'umi'
 import { IS_PROD } from './utils/env'
 
 export const request: RequestConfig = {

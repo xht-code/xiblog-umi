@@ -1,7 +1,7 @@
 import { MenuOutlined } from '@ant-design/icons'
+import { history, useLocation } from '@umijs/max'
 import { Button, Drawer, Menu } from 'antd'
 import React, { useState } from 'react'
-import { history, useLocation } from 'umi'
 import routes from '../../config/routes'
 
 const NAVS = routes.filter((route) => route.isNav)
@@ -26,7 +26,10 @@ export default function GlobalHeader() {
       bg-white shadow-lg shadow-[rgba(0,0,0,0.02)]'
       >
         <div className='flex items-center flex-1 overflow-hidden justify-between sm:justify-start'>
-          <div className='flex-shrink-0 text-[22px] text-primary'>
+          <div
+            className='flex-shrink-0 text-[22px] font-semibold text-primary cursor-pointer'
+            onClick={() => history.push('/')}
+          >
             XHT&apos;s Blog
           </div>
 

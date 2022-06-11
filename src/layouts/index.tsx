@@ -1,5 +1,5 @@
+import { Outlet } from '@umijs/max'
 import React from 'react'
-import { Outlet } from 'umi'
 import GlobalHeader from './header'
 
 export default function GlobalLayout() {
