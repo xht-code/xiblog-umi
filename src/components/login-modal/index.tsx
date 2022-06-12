@@ -20,14 +20,14 @@ const LoginModal: FC<LoginModalProps> = ({
   const captcha = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const tCaptcha = new TencentCaptcha(
+    const tCaptcha = new TencentCaptcha()?.(
       captcha.current,
       '2096853248',
       (res) => {
         console.log(res)
       },
     )
-    tCaptcha.show()
+    tCaptcha?.show()
   }, [])
 
   const handleFinish = async (values) => {
