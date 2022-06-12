@@ -3,18 +3,33 @@ import {
   ModalFormProps,
   ProFormText,
 } from '@ant-design/pro-components'
-import React, { FC } from 'react'
+import React, { FC, useEffect, useRef } from 'react'
 
 export interface LoginModalProps extends ModalFormProps {
   children: ModalFormProps['trigger']
   afterLogin?: () => void
 }
 
+declare const TencentCaptcha: any
+
 const LoginModal: FC<LoginModalProps> = ({
   children,
   afterLogin,
   ...props
 }) => {
+  const captcha = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const tCaptcha = new TencentCaptcha(
+      captcha.current,
+      '2096853248',
+      (res) => {
+        console.log(res)
+      },
+    )
+    tCaptcha.show()
+  }, [])
+
   const handleFinish = async (values) => {
     console.log('values: ', values)
     afterLogin?.()
@@ -42,6 +57,8 @@ const LoginModal: FC<LoginModalProps> = ({
         placeholder='请输入密码'
         rules={[{ required: true, whitespace: true }]}
       />
+
+      <div ref={captcha} />
     </ModalForm>
   )
 }
