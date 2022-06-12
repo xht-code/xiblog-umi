@@ -1,4 +1,5 @@
 import LoginModal from '@/components/login-modal'
+import RegisterModal from '@/components/register-modal'
 import useEnv from '@/hooks/useEnv'
 import { MenuOutlined } from '@ant-design/icons'
 import { history, useLocation } from '@umijs/max'
@@ -68,7 +69,10 @@ export default function GlobalHeader() {
             <LoginModal>
               <Button type='primary'>登录</Button>
             </LoginModal>
-            <Button type='link'>注册</Button>
+
+            <RegisterModal>
+              <Button type='link'>注册</Button>
+            </RegisterModal>
           </div>
         </div>
       </header>

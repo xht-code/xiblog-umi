@@ -43,7 +43,7 @@ export default function Page() {
   )
 
   if (loading) {
-    return <Skeleton active />
+    return <Skeleton />
   }
 
   return (

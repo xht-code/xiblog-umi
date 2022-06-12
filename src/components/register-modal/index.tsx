@@ -1,4 +1,4 @@
-import { login } from '@/services/user'
+import { register } from '@/services/user'
 import { encryptPassword } from '@/utils/user'
 import {
   ModalForm,
@@ -7,14 +7,15 @@ import {
   ProFormText,
 } from '@ant-design/pro-components'
 import { useRequest } from '@umijs/max'
+import omit from 'lodash/omit'
 import React, { FC, useEffect } from 'react'
 
-export interface LoginModalProps extends ModalFormProps {
+export interface RegisterModalProps extends ModalFormProps {
   children: ModalFormProps['trigger']
   afterLogin?: () => void
 }
 
-const LoginModal: FC<LoginModalProps> = ({
+const RegisterModal: FC<RegisterModalProps> = ({
   children,
   afterLogin,
   ...props
@@ -47,10 +48,10 @@ const LoginModal: FC<LoginModalProps> = ({
   const handleFinish = async (values) => {
     try {
       const data = {
-        ...values,
+        ...omit(values, 'repeatPassword'),
         password: encryptPassword(values.password),
       }
-      await login(data)
+      await register(data)
       afterLogin?.()
       return true
     } catch (error) {
@@ -64,22 +65,59 @@ const LoginModal: FC<LoginModalProps> = ({
       width={480}
       {...props}
       form={form}
-      title='登录'
+      title='注册'
       trigger={children}
       onFinish={handleFinish}
     >
       <ProFormText
         name='account'
         label='账号'
-        placeholder='输入你的账号'
-        rules={[{ required: true, whitespace: true }]}
+        extra='账号支持英文、数字、下划线，3-20个字符'
+        rules={[
+          { required: true, whitespace: true },
+          { pattern: /^\w{3,20}$/, message: '账号格式不正确' },
+        ]}
+      />
+
+      <ProFormText
+        name='nickname'
+        label='昵称'
+        extra='昵称支持中文、英文、数字、下划线，最多12个字符'
+        rules={[
+          { required: true, whitespace: true },
+          { pattern: /^[\u4e00-\u9fa5\w]{1,12}$/, message: '昵称格式不正确' },
+        ]}
       />
 
       <ProFormText.Password
         name='password'
         label='密码'
-        placeholder='输入您的密码'
-        rules={[{ required: true, whitespace: true }]}
+        extra='密码由英文字母、数字和特殊字符组成，支持6-30位'
+        rules={[
+          { required: true, whitespace: true },
+          { pattern: /^[^\r\n]{6,30}$/, message: '密码格式不正确' },
+        ]}
+      />
+
+      <ProFormText.Password
+        name='repeatPassword'
+        label='密码确认'
+        extra='再次填写密码，确保两次输入一致'
+        dependencies={['password']}
+        rules={[
+          {
+            required: true,
+            validator: (_rule, value) => {
+              if (!value) {
+                return Promise.reject(new Error('请再次填写密码'))
+              }
+              if (value !== form.getFieldValue('password')) {
+                return Promise.reject(new Error('两次输入的密码不一致'))
+              }
+              return Promise.resolve()
+            },
+          },
+        ]}
       />
 
       <ProForm.Item noStyle name='captchaId' />
@@ -90,7 +128,6 @@ const LoginModal: FC<LoginModalProps> = ({
             noStyle
             label='验证码'
             name='code'
-            placeholder='输入验证码'
             rules={[{ required: true, whitespace: true }]}
           />
 
@@ -105,4 +142,4 @@ const LoginModal: FC<LoginModalProps> = ({
   )
 }
 
-export default LoginModal
+export default RegisterModal
