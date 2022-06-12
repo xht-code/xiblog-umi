@@ -26,6 +26,5 @@ export default {
     },
   },
   hash: true,
-  headScripts: ['https://ssl.captcha.qq.com/TCaptcha.js'],
   npmClient: 'pnpm',
 }
