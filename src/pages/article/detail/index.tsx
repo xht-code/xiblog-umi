@@ -1,4 +1,5 @@
 import { InfoItem } from '@/pages/home/components'
+import { base64Parse } from '@/utils/encryption'
 import {
   ClockCircleOutlined,
   TagsOutlined,
@@ -6,7 +7,6 @@ import {
 } from '@ant-design/icons'
 import { Link, useParams, useRequest } from '@umijs/max'
 import { Skeleton } from 'antd'
-import CryptoJS from 'crypto-js'
 import dayjs from 'dayjs'
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
@@ -31,9 +31,7 @@ export default function Page() {
         return {
           ...data,
           ...data.detail,
-          content: CryptoJS.enc.Base64.parse(data.detail.content).toString(
-            CryptoJS.enc.Utf8,
-          ),
+          content: base64Parse(data.detail.content),
           createTime,
           updateTime,
           detail: undefined,

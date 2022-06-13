@@ -1,4 +1,6 @@
+import useCaptcha from '@/hooks/useCaptcha'
 import { login } from '@/services/user'
+import Storage, { StorageKey } from '@/utils/storage'
 import { encryptPassword } from '@/utils/user'
 import {
   ModalForm,
@@ -6,11 +8,10 @@ import {
   ProForm,
   ProFormText,
 } from '@ant-design/pro-components'
-import { useRequest } from '@umijs/max'
-import React, { FC, useEffect } from 'react'
+import React, { FC } from 'react'
 
 export interface LoginModalProps extends ModalFormProps {
-  children: ModalFormProps['trigger']
+  children?: ModalFormProps['trigger']
   afterLogin?: () => void
 }
 
@@ -21,28 +22,9 @@ const LoginModal: FC<LoginModalProps> = ({
 }) => {
   const [form] = ProForm.useForm()
 
-  const { data, run: getCode } = useRequest(
-    {
-      method: 'GET',
-      url: '/auth/code',
-    },
-    {
-      manual: true,
-      formatResult: ({ data }) => {
-        return {
-          captchaId: data.captchaId,
-          graphics: 'data:image/svg+xml;base64,' + btoa(data.graphics),
-        }
-      },
-      onSuccess: (data) => {
-        form.setFieldsValue({ captchaId: data.captchaId })
-      },
-    },
-  )
-
-  useEffect(() => {
-    getCode()
-  }, [])
+  const { data, getCode } = useCaptcha({
+    onSuccess: (data) => form.setFieldsValue({ captchaId: data.captchaId }),
+  })
 
   const handleFinish = async (values) => {
     try {
@@ -50,7 +32,12 @@ const LoginModal: FC<LoginModalProps> = ({
         ...values,
         password: encryptPassword(values.password),
       }
-      await login(data)
+      const {
+        data: { accessToken, user },
+      } = await login(data)
+      Storage.set(StorageKey.TOKEN, accessToken)
+      Storage.set(StorageKey.USER_INFO, user)
+
       afterLogin?.()
       return true
     } catch (error) {
@@ -66,6 +53,10 @@ const LoginModal: FC<LoginModalProps> = ({
       form={form}
       title='登录'
       trigger={children}
+      onVisibleChange={(visible) => {
+        if (visible) getCode()
+        props.onVisibleChange?.(visible)
+      }}
       onFinish={handleFinish}
     >
       <ProFormText

@@ -2,6 +2,7 @@ import { RequestConfig } from '@umijs/max'
 import { message } from 'antd'
 import { match } from 'path-to-regexp'
 import { IS_PROD } from './utils/env'
+import Storage, { StorageKey } from './utils/storage'
 
 export const request: RequestConfig = {
   requestInterceptors: [
@@ -11,6 +12,13 @@ export const request: RequestConfig = {
         ? `//xiblog-nestjs-xiblog-hwfyluqscj.cn-shenzhen.fcapp.run${originalUrl}`
         : `/api${originalUrl}`
       return { ...config, url }
+    },
+    (config) => {
+      const token = Storage.get(StorageKey.TOKEN, '')
+      return {
+        ...config,
+        headers: { ...config.headers, Authorization: `Bearer ${token}` },
+      }
     },
   ]
     // 请求拦截器的顺序是反的

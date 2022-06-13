@@ -1,6 +1,8 @@
 import LoginModal from '@/components/login-modal'
 import RegisterModal from '@/components/register-modal'
 import useEnv from '@/hooks/useEnv'
+import type { UserInfo } from '@/types'
+import Storage, { StorageKey } from '@/utils/storage'
 import { MenuOutlined } from '@ant-design/icons'
 import { history, useLocation } from '@umijs/max'
 import { Button, Drawer, Menu } from 'antd'
@@ -12,6 +14,7 @@ const NAVS = routes.filter((route) => route.isNav)
 export default function GlobalHeader() {
   const location = useLocation()
   const [visible, setVisible] = useState(false)
+  const [loginVisible, setLoginVisible] = useState(false)
 
   const { isMobile } = useEnv()
 
@@ -19,6 +22,9 @@ export default function GlobalHeader() {
     NAVS.find((nav) =>
       location.pathname.substring(1).startsWith(nav.path.substring(1)),
     )?.path || '/home'
+
+  const user = Storage.get<UserInfo>(StorageKey.USER_INFO)
+  console.log('user: ', user)
 
   const handleOpen = () => setVisible(true)
 
@@ -65,15 +71,19 @@ export default function GlobalHeader() {
             )}
           </div>
 
-          <div className='hidden sm:flex sm:flex-shrink-0 gap-x-[10px]'>
-            <LoginModal>
-              <Button type='primary'>登录</Button>
-            </LoginModal>
+          {!user ? (
+            <div className='hidden sm:flex sm:flex-shrink-0 gap-x-[10px]'>
+              <Button type='primary' onClick={() => setLoginVisible(true)}>
+                登录
+              </Button>
 
-            <RegisterModal>
-              <Button type='link'>注册</Button>
-            </RegisterModal>
-          </div>
+              <RegisterModal onLogin={() => setLoginVisible(true)}>
+                <Button type='link'>注册</Button>
+              </RegisterModal>
+            </div>
+          ) : (
+            <div>{user.nickname}</div>
+          )}
         </div>
       </header>
 
@@ -88,6 +98,8 @@ export default function GlobalHeader() {
         <p>Some contents...</p>
         <p>Some contents...</p>
       </Drawer>
+
+      <LoginModal visible={loginVisible} onVisibleChange={setLoginVisible} />
     </>
   )
 }
