@@ -1,12 +1,11 @@
 import LoginModal from '@/components/login-modal'
 import RegisterModal from '@/components/register-modal'
 import useEnv from '@/hooks/useEnv'
-import type { UserInfo } from '@/types'
 import Storage, { StorageKey } from '@/utils/storage'
 import { MenuOutlined } from '@ant-design/icons'
-import { history, useLocation } from '@umijs/max'
+import { history, useLocation, useRequest } from '@umijs/max'
 import { Button, Drawer, Menu } from 'antd'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import routes from '../../config/routes'
 
 const NAVS = routes.filter((route) => route.isNav)
@@ -23,8 +22,27 @@ export default function GlobalHeader() {
       location.pathname.substring(1).startsWith(nav.path.substring(1)),
     )?.path || '/home'
 
-  const user = Storage.get<UserInfo>(StorageKey.USER_INFO)
-  console.log('user: ', user)
+  const { data: user, run: getUserInfo } = useRequest(
+    {
+      method: 'GET',
+      url: '/user/info',
+      skipErrorHandler: true,
+    },
+    {
+      manual: true,
+      onError: ({ response }: any) => {
+        if (response.data?.errCode === 4002) {
+          Storage.clear()
+        }
+      },
+    },
+  )
+
+  useEffect(() => {
+    if (Storage.get(StorageKey.TOKEN)) {
+      getUserInfo()
+    }
+  }, [])
 
   const handleOpen = () => setVisible(true)
 
@@ -99,7 +117,11 @@ export default function GlobalHeader() {
         <p>Some contents...</p>
       </Drawer>
 
-      <LoginModal visible={loginVisible} onVisibleChange={setLoginVisible} />
+      <LoginModal
+        visible={loginVisible}
+        onVisibleChange={setLoginVisible}
+        afterLogin={getUserInfo}
+      />
     </>
   )
 }

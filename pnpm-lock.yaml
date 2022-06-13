@@ -13,6 +13,7 @@ specifiers:
   '@umijs/max': 4.0.0-rc.21
   ahooks: ^3.4.1
   antd: ^4.21.0
+  axios: ^0.27.2
   classnames: ^2.3.1
   crypto-js: ^4.1.1
   dayjs: ^1.11.3
@@ -41,6 +42,7 @@ dependencies:
   '@umijs/max': 4.0.0-rc.21_cc2745c539dc4d144cc8bc2c092852ee
   ahooks: 3.4.1_react@18.1.0
   antd: 4.21.0_react@18.1.0
+  axios: 0.27.2
   classnames: 2.3.1
   crypto-js: 4.1.1
   dayjs: 1.11.3

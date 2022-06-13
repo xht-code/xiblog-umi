@@ -34,10 +34,16 @@ export const request: RequestConfig = {
   ],
   errorConfig: {
     errorHandler(err) {
-      console.log('errorHandler: ', err)
+      // TODO：按文档说法应该是进不来，等官方处理后移除
+      if (err?.config?.skipErrorHandler) return
 
-      if (err?.data?.errMsg) {
-        message.error(err.data.errMsg)
+      if (err?.name !== 'AxiosError') return
+
+      const {
+        response: { data },
+      } = err
+      if (data?.errMsg) {
+        message.error(data.errMsg)
       }
     },
   },

@@ -60,20 +60,20 @@ const RegisterModal: FC<RegisterModalProps> = ({
       <ProFormText
         name='account'
         label='账号'
-        extra='账号支持英文、数字、下划线，3-20个字符'
+        extra='账号支持英文、数字、下划线，3-16个字符'
         rules={[
           { required: true, whitespace: true },
-          { pattern: /^\w{3,20}$/, message: '账号格式不正确' },
+          { pattern: /^\w{3,16}$/, message: '账号格式不正确' },
         ]}
       />
 
       <ProFormText
         name='nickname'
         label='昵称'
-        extra='昵称支持中文、英文、数字、下划线，最多12个字符'
+        extra='昵称支持中文、英文、数字、中横线、下划线，最多12个字符'
         rules={[
           { required: true, whitespace: true },
-          { pattern: /^[\u4e00-\u9fa5\w]{1,12}$/, message: '昵称格式不正确' },
+          { pattern: /^[\u4e00-\u9fa5\-\w]{1,12}$/, message: '昵称格式不正确' },
         ]}
       />
 

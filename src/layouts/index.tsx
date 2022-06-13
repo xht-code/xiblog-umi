@@ -3,7 +3,6 @@ import React from 'react'
 import GlobalHeader from './header'
 
 export default function GlobalLayout() {
-  console.log('husky test 8')
   return (
     <div className='!min-h-[100vh] flex flex-col'>
       <GlobalHeader />
