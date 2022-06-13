@@ -82,7 +82,7 @@ export default function HomePage() {
               {item.title}
             </div>
             <div className='mt-[5px] flex items-center'>
-              <InfoItem icon={UserOutlined} text={item.author} />
+              <InfoItem icon={UserOutlined} text={item.author.nickname} />
               <InfoItem
                 icon={ClockCircleOutlined}
                 text={dayjs(item.createTime).format(

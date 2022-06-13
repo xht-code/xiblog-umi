@@ -52,7 +52,9 @@ export default function Page() {
       <div className='mt-[5px] sm:mt-[10px] text-[16px] flex items-center flex-wrap gap-y-[5px]'>
         <InfoItem
           icon={UserOutlined}
-          text={<Link to={`/user/`}>{data.author}</Link>}
+          text={
+            <Link to={`/user/${data.author.id}`}>{data.author.nickname}</Link>
+          }
         />
         <InfoItem icon={ClockCircleOutlined} text={data.createTime} />
         <InfoItem
