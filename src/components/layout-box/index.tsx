@@ -16,7 +16,7 @@ const LayoutBox: FC<LayoutBoxProps> = ({
     <section
       {...props}
       className={classNames(
-        'p-[20px] rounded-[10px] bg-white',
+        'sm:p-[20px] rounded-[10px] sm:bg-white',
         props.className,
       )}
     >

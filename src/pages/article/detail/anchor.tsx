@@ -44,6 +44,8 @@ const ArticleAnchor: ForwardRefRenderFunction<
     setData,
   }))
 
+  if (!data.length) return null
+
   return (
     <Affix offsetTop={84} {...props}>
       <LayoutBox title='文章导航'>
