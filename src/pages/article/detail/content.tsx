@@ -14,8 +14,6 @@ import dayjs from 'dayjs'
 import React, { FC, useEffect, useRef } from 'react'
 import ReactMarkdown from 'react-markdown'
 import { HeadingProps } from 'react-markdown/lib/ast-to-react'
-import rehypeHighlight from 'rehype-highlight'
-import remarkGfm from 'remark-gfm'
 import { AnchorRefMethods } from './anchor'
 
 const ANCHOR_CLASS = 'article-anchor'
@@ -121,8 +119,9 @@ const ArticleContent: FC<ArticleContentProps> = ({ anchorRef, ...props }) => {
                 })
               }, {}),
           }}
-          remarkPlugins={[remarkGfm]}
-          rehypePlugins={[rehypeHighlight]}
+          // FIXME: 构建报错
+          // remarkPlugins={[remarkGfm]}
+          // rehypePlugins={[rehypeHighlight]}
         >
           {data.content}
         </ReactMarkdown>
