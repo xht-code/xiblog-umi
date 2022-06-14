@@ -1,5 +1,6 @@
 import IconText from '@/components/icon-text'
 import { InfiniteScroll } from '@/components/infinite-scroll'
+import LayoutBox from '@/components/layout-box'
 import useEnv from '@/hooks/useEnv'
 import Event from '@/utils/event'
 import {
@@ -50,11 +51,13 @@ export default function HomePage() {
   const { isMobile } = useEnv()
 
   if (!data) {
-    return Array(5).fill(<Skeleton className='mb-[40px]' />)
+    return Array(5)
+      .fill(0)
+      .map((_value, index) => <Skeleton key={index} className='mb-[40px]' />)
   }
 
   return (
-    <div>
+    <LayoutBox>
       <List
         itemLayout='vertical'
         size='large'
@@ -107,6 +110,6 @@ export default function HomePage() {
           })
         }}
       />
-    </div>
+    </LayoutBox>
   )
 }

@@ -10,7 +10,7 @@ export default [
     isNav: true,
   },
   {
-    path: '/article/list',
+    path: '/article',
     title: '文章',
     component: './article/list',
     isNav: true,

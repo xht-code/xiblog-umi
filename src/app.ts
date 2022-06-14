@@ -1,6 +1,7 @@
 import { RequestConfig } from '@umijs/max'
 import { message } from 'antd'
 import { match } from 'path-to-regexp'
+import { setTitle } from './utils'
 import { IS_PROD } from './utils/env'
 import Storage, { StorageKey } from './utils/storage'
 
@@ -55,10 +56,10 @@ export function onRouteChange(opts: any) {
     (route) => route?.id !== '@@/global-layout',
   )
   const currentRoute = allRoute.find((route: any) =>
-    match(route.path)(location.pathname.replace(/^\/qy/, '') || '/'),
+    match(route.path)(location.pathname),
   )
   // 设置标题
   if (currentRoute?.title) {
-    document.title = `${currentRoute.title} | XHT's Blog`
+    setTitle(currentRoute.title)
   }
 }

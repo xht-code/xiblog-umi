@@ -7,6 +7,7 @@ import { history, useLocation, useRequest } from '@umijs/max'
 import { Button, Drawer, Menu } from 'antd'
 import React, { useEffect, useState } from 'react'
 import routes from '../../config/routes'
+import LoginUser from './login-user'
 
 const NAVS = routes.filter((route) => route.isNav)
 
@@ -44,10 +45,6 @@ export default function GlobalHeader() {
     }
   }, [])
 
-  const handleOpen = () => setVisible(true)
-
-  const handleClose = () => setVisible(false)
-
   return (
     <>
       <header
@@ -65,8 +62,8 @@ export default function GlobalHeader() {
 
             {!isMobile ? (
               <Menu
-                activeKey={activeKey}
-                className='flex flex-1 h-full !border-b-transparent !px-[20px]'
+                selectedKeys={[activeKey]}
+                className='hidden sm:flex flex-1 h-full !border-b-transparent !px-[20px]'
                 mode='horizontal'
               >
                 {NAVS.map(({ title, path }) => (
@@ -84,7 +81,7 @@ export default function GlobalHeader() {
                 type='link'
                 className='text-gray-500'
                 icon={<MenuOutlined />}
-                onClick={handleOpen}
+                onClick={() => setVisible(true)}
               />
             )}
           </div>
@@ -100,7 +97,7 @@ export default function GlobalHeader() {
               </RegisterModal>
             </div>
           ) : (
-            <div>{user.nickname}</div>
+            <LoginUser user={user} />
           )}
         </div>
       </header>
@@ -110,7 +107,7 @@ export default function GlobalHeader() {
         closable={false}
         placement='right'
         visible={visible}
-        onClose={handleClose}
+        onClose={() => setVisible(false)}
       >
         <p>Some contents...</p>
         <p>Some contents...</p>

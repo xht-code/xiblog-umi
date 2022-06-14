@@ -7,7 +7,7 @@ export default function GlobalLayout() {
     <div className='!min-h-[100vh] flex flex-col'>
       <GlobalHeader />
 
-      <main className='flex-1 w-full max-w-[1280px] mx-auto mt-[64px] p-[20px] bg-white'>
+      <main className='flex-1 w-full max-w-[1280px] mx-auto mt-[64px] p-[20px]'>
         <Outlet />
       </main>
 

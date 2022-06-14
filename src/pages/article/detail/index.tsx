@@ -1,82 +1,24 @@
-import { InfoItem } from '@/pages/home/components'
-import { base64Parse } from '@/utils/encryption'
-import {
-  ClockCircleOutlined,
-  TagsOutlined,
-  UserOutlined,
-} from '@ant-design/icons'
-import { Link, useParams, useRequest } from '@umijs/max'
-import { Skeleton } from 'antd'
-import dayjs from 'dayjs'
-import React from 'react'
-import ReactMarkdown from 'react-markdown'
-import rehypeHighlight from 'rehype-highlight'
-import remarkGfm from 'remark-gfm'
+import useEnv from '@/hooks/useEnv'
+import React, { useRef } from 'react'
+import ArticleAnchor, { AnchorRefMethods } from './anchor'
+import ArticleContent from './content'
 
 export default function Page() {
-  const { articleId } = useParams()
+  const anchorRef = useRef<AnchorRefMethods>(null)
 
-  const { data, loading } = useRequest(
-    {
-      method: 'GET',
-      url: `/article/${articleId}`,
-    },
-    {
-      formatResult: ({ data }) => {
-        const [createTime, updateTime] = [
-          data.createTime,
-          data.detail.updateTime,
-        ].map((time) => dayjs(time).format('YYYY-MM-DD HH:mm:ss'))
-
-        return {
-          ...data,
-          ...data.detail,
-          content: base64Parse(data.detail.content),
-          createTime,
-          updateTime,
-          detail: undefined,
-        }
-      },
-    },
-  )
-
-  if (loading) {
-    return <Skeleton />
-  }
+  const { isMobile } = useEnv()
 
   return (
-    <div>
-      <h1 className='text-[26px] sm:text-[32px] font-semibold'>{data.title}</h1>
-      <div className='mt-[5px] sm:mt-[10px] text-[16px] flex items-center flex-wrap gap-y-[5px]'>
-        <InfoItem
-          icon={UserOutlined}
-          text={
-            <Link to={`/user/${data.author.id}`}>{data.author.nickname}</Link>
-          }
-        />
-        <InfoItem icon={ClockCircleOutlined} text={data.createTime} />
-        <InfoItem
-          icon={TagsOutlined}
-          text={data.tags.map((tag) => (
-            <Link
-              key={tag.id}
-              to={`/article/tag/${tag.id}`}
-              className='px-[12px] py-[3px] text-[14px] rounded-[5px] transition-[background]
-              text-gray-600 bg-gray-100 hover:text-white hover:bg-primary'
-            >
-              {tag.name}
-            </Link>
-          ))}
-        />
-      </div>
-      <article className='article-content mt-[20px]'>
-        <ReactMarkdown
-          remarkPlugins={[remarkGfm]}
-          rehypePlugins={[rehypeHighlight]}
-        >
-          {data.content}
-        </ReactMarkdown>
-      </article>
-    </div>
+    <section className='flex'>
+      <main className='flex-1 overflow-hidden'>
+        <ArticleContent anchorRef={anchorRef} className='p-[30px]' />
+      </main>
+
+      {!isMobile && (
+        <aside className='hidden sm:block ml-[20px] flex-shrink-0 w-[200px]'>
+          <ArticleAnchor ref={anchorRef} />
+        </aside>
+      )}
+    </section>
   )
 }
