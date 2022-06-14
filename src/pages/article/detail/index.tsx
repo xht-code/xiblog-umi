@@ -11,7 +11,7 @@ export default function Page() {
   return (
     <section className='flex'>
       <main className='flex-1 overflow-hidden'>
-        <ArticleContent anchorRef={anchorRef} className='p-[30px]' />
+        <ArticleContent anchorRef={anchorRef} className='sm:p-[30px]' />
       </main>
 
       {!isMobile && (
