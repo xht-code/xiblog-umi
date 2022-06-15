@@ -25,6 +25,5 @@ export default {
       hack: `true; @import "~@/styles/variables/index.less";`,
     },
   },
-  hash: true,
   npmClient: 'pnpm',
 }
