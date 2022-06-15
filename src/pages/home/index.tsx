@@ -3,14 +3,14 @@ import { InfiniteScroll } from '@/components/infinite-scroll'
 import LayoutBox from '@/components/layout-box'
 import useEnv from '@/hooks/useEnv'
 import Event from '@/utils/event'
+import { DEFAULT_AVATAR } from '@/utils/user'
 import {
   ClockCircleOutlined,
   EyeOutlined,
   StarOutlined,
-  UserOutlined,
 } from '@ant-design/icons'
 import { history, useRequest } from '@umijs/max'
-import { List, Skeleton } from 'antd'
+import { Avatar, List, Skeleton } from 'antd'
 import dayjs from 'dayjs'
 import React, { useState } from 'react'
 
@@ -84,8 +84,16 @@ export default function HomePage() {
             <div className='text-[22px] font-semibold flex-shrink-0 transition duration-300 group-hover:text-primary'>
               {item.title}
             </div>
-            <div className='mt-[5px] flex items-center'>
-              <InfoItem icon={UserOutlined} text={item.author.nickname} />
+            <div className='mt-[5px] flex items-center flex-wrap'>
+              <div className='mr-[15px] text-[rgb(155,155,155)]'>
+                <Avatar
+                  size='small'
+                  src={item.author.avatar || DEFAULT_AVATAR}
+                  className='mr-[5px]'
+                />
+                {item.author.nickname}
+              </div>
+
               <InfoItem
                 icon={ClockCircleOutlined}
                 text={dayjs(item.createTime).format(
