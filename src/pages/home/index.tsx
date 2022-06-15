@@ -51,9 +51,15 @@ export default function HomePage() {
   const { isMobile } = useEnv()
 
   if (!data) {
-    return Array(5)
-      .fill(0)
-      .map((_value, index) => <Skeleton key={index} className='mb-[40px]' />)
+    return (
+      <LayoutBox>
+        {Array(5)
+          .fill(0)
+          .map((_value, index) => (
+            <Skeleton key={index} className='mb-[40px]' />
+          ))}
+      </LayoutBox>
+    )
   }
 
   return (
@@ -85,11 +91,10 @@ export default function HomePage() {
               {item.title}
             </div>
             <div className='mt-[5px] flex items-center flex-wrap'>
-              <div className='!mr-[15px] text-[rgb(155,155,155)]'>
+              <div className='mr-[15px] flex items-center gap-x-[5px] text-[rgb(155,155,155)]'>
                 <Avatar
                   size='small'
                   src={item.author.avatar || DEFAULT_AVATAR}
-                  className='mr-[5px]'
                 />
                 {item.author.nickname}
               </div>

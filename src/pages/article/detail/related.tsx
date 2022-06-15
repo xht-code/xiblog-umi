@@ -1,6 +1,5 @@
 import LayoutBox, { LayoutBoxProps } from '@/components/layout-box'
 import { Link, useRequest } from '@umijs/max'
-import { Skeleton } from 'antd'
 import React, { FC } from 'react'
 
 interface RelatedArticlesProps extends LayoutBoxProps {
@@ -14,22 +13,18 @@ const RelatedArticles: FC<RelatedArticlesProps> = ({ articleId, ...props }) => {
   })
 
   return (
-    <LayoutBox {...props} title='相关文章'>
-      {loading ? (
-        <Skeleton />
-      ) : (
-        <div className='flex flex-col gap-y-[10px]'>
-          {data?.map((article) => (
-            <Link
-              key={article.id}
-              to={`/article/${article.id}`}
-              className='truncate'
-            >
-              {article.title}
-            </Link>
-          ))}
-        </div>
-      )}
+    <LayoutBox {...props} title='相关文章' loading={loading}>
+      <div className='flex flex-col gap-y-[10px]'>
+        {data?.map((article) => (
+          <Link
+            key={article.id}
+            to={`/article/${article.id}`}
+            className='truncate'
+          >
+            {article.title}
+          </Link>
+        ))}
+      </div>
     </LayoutBox>
   )
 }

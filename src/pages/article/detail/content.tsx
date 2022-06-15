@@ -8,7 +8,6 @@ import {
   UserOutlined,
 } from '@ant-design/icons'
 import { Link, useRequest } from '@umijs/max'
-import { Skeleton } from 'antd'
 import classNames from 'classnames'
 import dayjs from 'dayjs'
 import React, { FC, useEffect, useRef } from 'react'
@@ -83,7 +82,7 @@ const ArticleContent: FC<ArticleContentProps> = ({
   }, [data?.content])
 
   if (loading) {
-    return <Skeleton />
+    return <LayoutBox {...props} loading={loading} />
   }
 
   return (

@@ -61,20 +61,18 @@ export default function Page() {
         description: {
           search: false,
           render: (_dom, { author, createTime, tags }) => (
-            <>
+            <div className='flex items-center'>
               {author.nickname}
               <Divider type='vertical' />
               {createTime}
               <Divider type='vertical' />
               {tags.map((item, index) => (
-                <>
-                  <Link key={item.id} to={`/article/tag/${item.id}`}>
-                    {item.name}
-                  </Link>
+                <div key={item.id}>
+                  <Link to={`/article/tag/${item.id}`}>{item.name}</Link>
                   {index !== tags.length - 1 && '、'}
-                </>
+                </div>
               ))}
-            </>
+            </div>
           ),
         },
         actions: {
