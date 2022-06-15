@@ -23,7 +23,11 @@ export default function GlobalHeader() {
       location.pathname.substring(1).startsWith(nav.path.substring(1)),
     )?.path || '/home'
 
-  const { data: user, run: getUserInfo } = useRequest(
+  const {
+    data: user,
+    mutate,
+    run: getUserInfo,
+  } = useRequest(
     {
       method: 'GET',
       url: '/user/info',
@@ -97,7 +101,7 @@ export default function GlobalHeader() {
               </RegisterModal>
             </div>
           ) : (
-            <LoginUser user={user} />
+            <LoginUser user={user} onLogout={() => mutate(null)} />
           )}
         </div>
       </header>

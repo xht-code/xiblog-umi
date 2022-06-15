@@ -7,10 +7,13 @@ interface RelatedArticlesProps extends LayoutBoxProps {
 }
 
 const RelatedArticles: FC<RelatedArticlesProps> = ({ articleId, ...props }) => {
-  const { data, loading } = useRequest({
-    method: 'GET',
-    url: `/article/${articleId}/related`,
-  })
+  const { data, loading } = useRequest(
+    {
+      method: 'GET',
+      url: `/article/${articleId}/related`,
+    },
+    { refreshDeps: [articleId] },
+  )
 
   return (
     <LayoutBox {...props} title='相关文章' loading={loading}>

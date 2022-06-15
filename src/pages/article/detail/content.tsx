@@ -48,6 +48,7 @@ const ArticleContent: FC<ArticleContentProps> = ({
       url: `/article/${articleId}`,
     },
     {
+      refreshDeps: [articleId],
       formatResult: ({ data }) => {
         const [createTime, updateTime] = [
           data.createTime,

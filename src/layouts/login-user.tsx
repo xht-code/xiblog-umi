@@ -7,13 +7,17 @@ import React, { FC, useRef } from 'react'
 
 interface LoginUserProps {
   user: UserInfo
+  onLogout?: () => void
 }
 
-const LoginUser: FC<LoginUserProps> = ({ user }) => {
+const LoginUser: FC<LoginUserProps> = ({ user, onLogout }) => {
   const ref = useRef<HTMLDivElement>(null)
 
   const handleToPersonal = () => history.push('/user/personal')
-  const handleLogout = () => Storage.clear()
+  const handleLogout = () => {
+    Storage.clear()
+    onLogout?.()
+  }
 
   return (
     <Dropdown
