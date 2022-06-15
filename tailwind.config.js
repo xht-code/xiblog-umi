@@ -10,9 +10,11 @@ module.exports = {
     extend: {
       colors: {
         primary: 'var(--primary-color)',
+        secondary: 'rgb(155, 155, 155)',
       },
     },
     screens: {
+      // 按照 antd 栅格匹配
       // min-width
       xs: '481px',
       sm: '577px',

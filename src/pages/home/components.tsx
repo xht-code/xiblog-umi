@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import tw from 'tailwind-styled-components'
 
 export const InfoItem = tw(IconText)<IconTextProps>`
-  mr-[10px] text-[rgb(155,155,155)]
+  mr-[10px] text-secondary
 `
 
 export const ListItem = styled(List.Item)<ListItemProps>`
