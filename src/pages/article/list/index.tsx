@@ -7,8 +7,7 @@ import React from 'react'
 
 export default function Page() {
   const fetchData = async ({ current, pageSize }) => {
-    console.log('current: ', current)
-    const { list: data, total } = await request('/article/no-content', {
+    const { list: data, total } = await request('/article/list', {
       method: 'POST',
       data: { page: current, pageSize },
     }).then(({ data }) => data)

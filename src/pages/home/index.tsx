@@ -28,7 +28,7 @@ export default function HomePage() {
     ({ current, pageSize }) => {
       return {
         method: 'POST',
-        url: '/article/no-content',
+        url: '/article/list',
         data: { page: current, pageSize },
       }
     },
