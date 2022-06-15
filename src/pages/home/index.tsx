@@ -85,7 +85,7 @@ export default function HomePage() {
               {item.title}
             </div>
             <div className='mt-[5px] flex items-center flex-wrap'>
-              <div className='mr-[15px] text-[rgb(155,155,155)]'>
+              <div className='!mr-[15px] text-[rgb(155,155,155)]'>
                 <Avatar
                   size='small'
                   src={item.author.avatar || DEFAULT_AVATAR}
