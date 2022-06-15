@@ -7,7 +7,7 @@ import {
   TagsOutlined,
   UserOutlined,
 } from '@ant-design/icons'
-import { Link, useParams, useRequest } from '@umijs/max'
+import { Link, useRequest } from '@umijs/max'
 import { Skeleton } from 'antd'
 import classNames from 'classnames'
 import dayjs from 'dayjs'
@@ -19,6 +19,7 @@ import { AnchorRefMethods } from './anchor'
 const ANCHOR_CLASS = 'article-anchor'
 
 interface ArticleContentProps extends LayoutBoxProps {
+  articleId: string
   anchorRef: React.RefObject<AnchorRefMethods>
 }
 
@@ -35,8 +36,11 @@ const reRender =
     )
   }
 
-const ArticleContent: FC<ArticleContentProps> = ({ anchorRef, ...props }) => {
-  const { articleId } = useParams()
+const ArticleContent: FC<ArticleContentProps> = ({
+  articleId,
+  anchorRef,
+  ...props
+}) => {
   const articleRef = useRef<HTMLElement>(null)
 
   const { data, loading } = useRequest(

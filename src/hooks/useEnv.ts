@@ -1,8 +1,11 @@
 import debounce from 'lodash/debounce'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
-export default function useEnv() {
+type Options = { once?: boolean }
+
+export default function useEnv(opts?: Options) {
   const [isMobile, setIsMobile] = useState(false)
+  const options = useRef(opts || {})
 
   const resize = useCallback(
     debounce(() => {
@@ -13,11 +16,15 @@ export default function useEnv() {
   )
 
   useEffect(() => {
-    window.addEventListener('resize', resize, false)
+    if (!options.current.once) {
+      window.addEventListener('resize', resize, false)
+    }
     resize()
 
     return () => {
-      window.removeEventListener('resize', resize, false)
+      if (!options.current.once) {
+        window.removeEventListener('resize', resize, false)
+      }
     }
   }, [])
 
