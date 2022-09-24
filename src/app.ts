@@ -10,7 +10,7 @@ export const request: RequestConfig = {
     (config) => {
       const { url: originalUrl } = config
       const url = IS_PROD
-        ? `//xiblog-nestjs-xiblog-hwfyluqscj.cn-shenzhen.fcapp.run${originalUrl}`
+        ? `//xiblog-backend-xiblog-gqeikkabxf.cn-shenzhen.fcapp.run${originalUrl}`
         : `/api${originalUrl}`
       return { ...config, url }
     },
