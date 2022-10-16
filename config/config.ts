@@ -17,8 +17,10 @@ export default {
   deadCode: {},
   targets: { chrome: 51 },
   mfsu: {
-    // FIXME: 4.0.0-rc.21 开启后 less 变量不生效
-    // esbuild: true
+    // FIXME: umi 4.0.25 启动报错
+    // https://github.com/umijs/umi/issues/9522#issuecomment-1278468580
+    strategy: 'normal',
+    esbuild: false,
   },
   lessLoader: {
     modifyVars: {
