@@ -3,8 +3,10 @@ import RegisterModal from '@/components/register-modal'
 import useEnv from '@/hooks/useEnv'
 import Storage, { StorageKey } from '@/utils/storage'
 import { MenuOutlined } from '@ant-design/icons'
+import { Link } from '@umijs/max'
 import { history, useLocation, useRequest } from '@umijs/max'
 import { Button, Drawer, Menu } from 'antd'
+import classNames from 'classnames'
 import React, { useEffect, useState } from 'react'
 import routes from '../../config/routes'
 import LoginUser from './login-user'
@@ -52,13 +54,13 @@ export default function GlobalHeader() {
   return (
     <>
       <header
-        className='fixed z-[1000] top-0 left-0 right-0 flex justify-center 
-        bg-white shadow-lg shadow-[rgba(0,0,0,0.02)]'
+        className='bg-white flex shadow-lg top-0 right-0 left-0 shadow-[rgba(0,0,0,0.02)] 
+        z-[1000] fixed justify-center'
       >
-        <div className='w-full max-w-[1280px] h-[64px] max-auto px-[20px] flex justify-between items-center'>
-          <div className='h-full flex items-center flex-1 overflow-hidden justify-between sm:justify-start'>
+        <div className='flex max-auto h-[64px] w-full max-w-[1280px] px-[20px] justify-between items-center'>
+          <div className='flex h-full flex-1 items-center overflow-hidden justify-between sm:justify-start'>
             <div
-              className='flex-shrink-0 text-[22px] font-semibold text-primary cursor-pointer'
+              className='cursor-pointer font-semibold flex-shrink-0 text-primary text-[22px]'
               onClick={() => history.push('/')}
             >
               XHT&apos;s Blog
@@ -67,13 +69,13 @@ export default function GlobalHeader() {
             {!isMobile ? (
               <Menu
                 selectedKeys={[activeKey]}
-                className='hidden sm:flex flex-1 h-full !border-b-transparent !px-[20px]'
+                className='h-full flex-1 hidden !border-b-transparent !px-[20px] sm:flex'
                 mode='horizontal'
               >
                 {NAVS.map(({ title, path }) => (
                   <Menu.Item
                     key={path}
-                    className='!flex items-center'
+                    className='items-center !flex'
                     onClick={() => history.push(path)}
                   >
                     {title}
@@ -91,7 +93,7 @@ export default function GlobalHeader() {
           </div>
 
           {!user ? (
-            <div className='hidden sm:flex sm:flex-shrink-0 gap-x-[10px]'>
+            <div className='gap-x-[10px] hidden sm:flex sm:flex-shrink-0'>
               <Button type='primary' onClick={() => setLoginVisible(true)}>
                 登录
               </Button>
@@ -107,15 +109,27 @@ export default function GlobalHeader() {
       </header>
 
       <Drawer
-        width='60vw'
+        width='40vw'
         closable={false}
         placement='right'
         visible={visible}
+        bodyStyle={{ padding: 0 }}
         onClose={() => setVisible(false)}
       >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+        <header className='pt-[20px]' />
+        {NAVS.map(({ title, path }) => (
+          <Link
+            key={path}
+            to={path}
+            className={classNames(
+              'mx-[10px] py-[8px] px-[15px] rounded-[5px] block text-gray-500',
+              { '!text-primary bg-gray-100': activeKey === path },
+            )}
+          >
+            {title}
+          </Link>
+        ))}
+        <footer className='pb-[20px]' />
       </Drawer>
 
       <LoginModal

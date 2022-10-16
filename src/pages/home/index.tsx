@@ -13,8 +13,10 @@ import { history, useRequest } from '@umijs/max'
 import { Avatar, List, Skeleton } from 'antd'
 import dayjs from 'dayjs'
 import React, { useState } from 'react'
+import AboutMe from './about'
 
 import { InfoItem, ListItem } from './components'
+import HotArticle from './hot-article'
 
 const getEventName = (page) => `PAGE_${page}_LOADED`
 
@@ -63,66 +65,76 @@ export default function HomePage() {
   }
 
   return (
-    <LayoutBox>
-      <List
-        itemLayout='vertical'
-        size='large'
-        dataSource={data.list}
-        renderItem={(item) => (
-          <ListItem
-            key={item.id}
-            className='group flex-col-reverse sm:flex-row !px-0 sm:!px-[24px] 
-              transition-[background] duration-300 transition-direction-[0.3s] 
-              cursor-pointer hover:bg-[rgba(0,0,0,0.01)]'
-            actions={[
-              <IconText icon={EyeOutlined} text={item.pv} key='pv' />,
-              <IconText icon={StarOutlined} text={item.star} key='star' />,
-            ]}
-            extra={
-              <img
-                className='w-full h-[200px] sm:w-[272px] sm:h-[150px] object-cover rounded-[10px]'
-                src={item.coverPic}
-                alt='cover'
-              />
-            }
-            onClick={() => history.push(`/article/${item.id}`)}
-          >
-            <div className='text-[22px] font-semibold flex-shrink-0 transition duration-300 group-hover:text-primary'>
-              {item.title}
-            </div>
-            <div className='mt-[5px] flex items-center flex-wrap'>
-              <div className='mr-[15px] flex items-center gap-x-[5px] text-secondary'>
-                <Avatar
-                  size='small'
-                  src={item.author.avatar || DEFAULT_AVATAR}
+    <div className='flex'>
+      <LayoutBox title='最新发布' className='flex-1'>
+        <List
+          itemLayout='vertical'
+          size='large'
+          dataSource={data.list}
+          renderItem={(item: any) => (
+            <ListItem
+              key={item.id}
+              className='cursor-pointer flex-col-reverse transition-[background] transition-direction-[0.3s] duration-300 
+              group !px-0 sm:flex-row 
+              sm:!px-[24px] hover:bg-[rgba(0,0,0,0.01)]'
+              actions={[
+                <IconText icon={EyeOutlined} text={item.pv} key='pv' />,
+                <IconText icon={StarOutlined} text={item.star} key='star' />,
+              ]}
+              extra={
+                <img
+                  className='object-cover rounded-[10px] h-[200px] w-full sm:h-[150px] sm:w-[272px]'
+                  src={item.coverPic}
+                  alt='cover'
                 />
-                {item.author.nickname}
+              }
+              onClick={() => history.push(`/article/${item.id}`)}
+            >
+              <div className='font-semibold flex-shrink-0 transition text-[22px] duration-300 group-hover:text-primary'>
+                {item.title}
               </div>
+              <div className='flex flex-wrap mt-[5px] items-center'>
+                <div className='flex mr-[15px] text-secondary gap-x-[5px] items-center'>
+                  <Avatar
+                    size='small'
+                    src={item.author.avatar || DEFAULT_AVATAR}
+                  />
+                  {item.author.nickname}
+                </div>
 
-              <InfoItem
-                icon={ClockCircleOutlined}
-                text={dayjs(item.createTime).format(
-                  isMobile ? 'MM-DD HH:mm' : 'YYYY-MM-DD HH:mm:ss',
-                )}
-              />
-            </div>
-            <div className='mt-[10px] flex-1 text-gray-600'>{item.intro}</div>
-          </ListItem>
-        )}
-      />
+                <InfoItem
+                  // @ts-ignore
+                  icon={ClockCircleOutlined}
+                  text={dayjs(item.createTime).format(
+                    isMobile ? 'MM-DD HH:mm' : 'YYYY-MM-DD HH:mm:ss',
+                  )}
+                />
+              </div>
+              <div className='flex-1 mt-[10px] text-gray-600'>{item.intro}</div>
+            </ListItem>
+          )}
+        />
 
-      <InfiniteScroll
-        hasMore={hasMore}
-        loadMore={() => {
-          const page = currentPage + 1
-          setPage(page)
+        <InfiniteScroll
+          hasMore={hasMore}
+          loadMore={() => {
+            const page = currentPage + 1
+            setPage(page)
 
-          // 等待请求完成
-          return new Promise((resolve) => {
-            Event.once(getEventName(page), resolve)
-          })
-        }}
-      />
-    </LayoutBox>
+            // 等待请求完成
+            return new Promise((resolve) => {
+              Event.once(getEventName(page), resolve)
+            })
+          }}
+        />
+      </LayoutBox>
+
+      {!isMobile && (
+        <aside className='flex-shrink-0 ml-[20px] w-[300px]'>
+          <HotArticle />
+          <AboutMe />
+        </aside>
+      )}
+    </div>
   )
 }
