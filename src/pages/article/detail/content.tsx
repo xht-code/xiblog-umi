@@ -14,6 +14,8 @@ import React, { FC, useEffect, useRef } from 'react'
 import ReactMarkdown from 'react-markdown'
 import { HeadingProps } from 'react-markdown/lib/ast-to-react'
 import { AnchorRefMethods } from './anchor'
+import remarkGfm from 'remark-gfm'
+import rehypeHighlight from 'rehype-highlight'
 
 const ANCHOR_CLASS = 'article-anchor'
 
@@ -88,8 +90,8 @@ const ArticleContent: FC<ArticleContentProps> = ({
 
   return (
     <LayoutBox {...props}>
-      <h1 className='text-[26px] sm:text-[32px] font-semibold'>{data.title}</h1>
-      <div className='mt-[5px] sm:mt-[10px] text-[16px] flex items-center flex-wrap gap-y-[5px]'>
+      <h1 className='font-semibold text-[26px] sm:text-[32px]'>{data.title}</h1>
+      <div className='flex flex-wrap mt-[5px] text-[16px] gap-y-[5px] items-center sm:mt-[10px]'>
         <InfoItem
           icon={UserOutlined}
           text={
@@ -103,15 +105,15 @@ const ArticleContent: FC<ArticleContentProps> = ({
             <Link
               key={tag.id}
               to={`/article/tag/${tag.id}`}
-              className='px-[12px] py-[3px] text-[14px] rounded-[5px] transition-[background]
-              text-gray-600 bg-gray-100 hover:text-white hover:bg-primary'
+              className='bg-gray-100 rounded-[5px] py-[3px] px-[12px] transition-[background]
+              text-[14px] text-gray-600 hover:bg-primary hover:text-white'
             >
               {tag.name}
             </Link>
           ))}
         />
       </div>
-      <article ref={articleRef} className='article-content mt-[20px]'>
+      <article ref={articleRef} className='mt-[20px] article-content'>
         <ReactMarkdown
           components={{
             // 生成 h1-h4 标签
@@ -123,9 +125,8 @@ const ArticleContent: FC<ArticleContentProps> = ({
                 })
               }, {}),
           }}
-          // FIXME: 构建报错
-          // remarkPlugins={[remarkGfm]}
-          // rehypePlugins={[rehypeHighlight]}
+          remarkPlugins={[remarkGfm]}
+          rehypePlugins={[rehypeHighlight]}
         >
           {data.content}
         </ReactMarkdown>
