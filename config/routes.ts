@@ -16,6 +16,11 @@ export default [
     isNav: true,
   },
   {
+    path: '/article/tag/:tagId',
+    title: '文章标签',
+    component: './article/tag',
+  },
+  {
     path: '/article/:articleId',
     title: '文章详情',
     component: './article/detail',
