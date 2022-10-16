@@ -93,6 +93,7 @@ const ArticleContent: FC<ArticleContentProps> = ({
       <h1 className='font-semibold text-[26px] sm:text-[32px]'>{data.title}</h1>
       <div className='flex flex-wrap mt-[5px] text-[16px] gap-y-[5px] items-center sm:mt-[10px]'>
         <InfoItem
+          // @ts-expect-error
           icon={UserOutlined}
           text={
             <Link to={`/user/${data.author.id}`}>{data.author.nickname}</Link>

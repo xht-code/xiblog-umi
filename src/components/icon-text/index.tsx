@@ -3,7 +3,7 @@ import React from 'react'
 
 export type IconTextProps = React.HTMLAttributes<HTMLDivElement> & {
   icon: React.FC
-  text: string
+  text: React.ReactNode
 }
 
 const IconText: React.FC<IconTextProps> = ({
