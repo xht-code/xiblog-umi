@@ -21,7 +21,7 @@ export default function HotArticle() {
             className={classNames(
               'bg-[#ddd] flex rounded-[50%] flex-shrink-0 h-[20px] text-[#fff] mr-[6px] p-[3px] text-[12px] w-[20px] justify-center items-center',
               { 'bg-[rgb(255,88,88)]': index === 0 },
-              { 'bg-[rgb(245,189,86)]': index === 1 },
+              { 'bg-[rgb(255,196,86)]': index === 1 },
               { 'bg-[rgb(68,199,68)]': index === 2 },
             )}
           >

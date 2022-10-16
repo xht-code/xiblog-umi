@@ -1,8 +1,6 @@
 import { useRequest } from '@umijs/max'
 import { Card } from 'antd'
-import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
-import rehypeHighlight from 'rehype-highlight'
+import Markdown from '@/components/markdown'
 
 export default function Page() {
   const { data } = useRequest({
@@ -12,12 +10,7 @@ export default function Page() {
 
   return (
     <Card bordered={false} className='article-content'>
-      <ReactMarkdown
-        remarkPlugins={[remarkGfm]}
-        rehypePlugins={[rehypeHighlight]}
-      >
-        {data?.content}
-      </ReactMarkdown>
+      <Markdown>{data?.content}</Markdown>
     </Card>
   )
 }

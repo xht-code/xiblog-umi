@@ -11,11 +11,9 @@ import { Link, useRequest } from '@umijs/max'
 import classNames from 'classnames'
 import dayjs from 'dayjs'
 import React, { FC, useEffect, useRef } from 'react'
-import ReactMarkdown from 'react-markdown'
 import { HeadingProps } from 'react-markdown/lib/ast-to-react'
 import { AnchorRefMethods } from './anchor'
-import remarkGfm from 'remark-gfm'
-import rehypeHighlight from 'rehype-highlight'
+import Markdown from '@/components/markdown'
 
 const ANCHOR_CLASS = 'article-anchor'
 
@@ -115,7 +113,7 @@ const ArticleContent: FC<ArticleContentProps> = ({
         />
       </div>
       <article ref={articleRef} className='mt-[20px] article-content'>
-        <ReactMarkdown
+        <Markdown
           components={{
             // 生成 h1-h4 标签
             ...Array(4)
@@ -126,11 +124,9 @@ const ArticleContent: FC<ArticleContentProps> = ({
                 })
               }, {}),
           }}
-          remarkPlugins={[remarkGfm]}
-          rehypePlugins={[rehypeHighlight]}
         >
           {data.content}
-        </ReactMarkdown>
+        </Markdown>
       </article>
     </LayoutBox>
   )
