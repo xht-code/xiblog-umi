@@ -16,7 +16,7 @@ export default function Page() {
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeHighlight]}
       >
-        {data.content}
+        {data?.content}
       </ReactMarkdown>
     </Card>
   )
