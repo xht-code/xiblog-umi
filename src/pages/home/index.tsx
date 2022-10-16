@@ -11,7 +11,7 @@ export default function HomePage() {
       <LatestArticle />
 
       {!isMobile && (
-        <aside className='flex-shrink-0 ml-[20px] w-[300px]'>
+        <aside className='flex-shrink-0 ml-[20px] w-[300px] hidden sm:block'>
           <HotArticle />
           <AboutMe />
         </aside>
