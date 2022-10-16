@@ -11,7 +11,7 @@ export default function Page() {
   })
 
   return (
-    <Card bordered={false}>
+    <Card bordered={false} className='article-content'>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeHighlight]}
