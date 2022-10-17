@@ -10,7 +10,7 @@ export const request: RequestConfig = {
     (config) => {
       const { url: originalUrl } = config
       const url = IS_PROD
-        ? `//xiblog-backend-xiblog-gqeikkabxf.cn-shenzhen.fcapp.run${originalUrl}`
+        ? `//xiblog-nestjs-xiblog-hwfyluqscj.cn-shenzhen.fcapp.run${originalUrl}`
         : `/api${originalUrl}`
       return { ...config, url }
     },
@@ -34,7 +34,7 @@ export const request: RequestConfig = {
     },
   ],
   errorConfig: {
-    errorHandler(err) {
+    errorHandler(err: any) {
       // TODO：按文档说法应该是进不来，等官方处理后移除
       if (err?.config?.skipErrorHandler) return
 
