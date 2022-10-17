@@ -81,23 +81,25 @@ export default function Page() {
           onClick: () => history.push(`/article/${record.id}`),
         })}
         metas={{
-          searchType: {
-            title: '搜索类型',
-            valueType: 'radio',
-            formItemProps: {
-              initialValue: 'article',
-            },
-            valueEnum: {
-              article: { text: '文章标题' },
-              tag: { text: '标签名' },
-              author: { text: '创作者' },
-            },
-          },
-          searchValue: {
-            title: '搜索内容',
+          articleTitle: {
+            title: '文章标题',
             valueType: 'text',
             fieldProps: {
-              placeholder: '请输入搜索内容',
+              placeholder: '输入文章标题',
+            },
+          },
+          tagName: {
+            title: '标签名',
+            valueType: 'text',
+            fieldProps: {
+              placeholder: '输入标签名',
+            },
+          },
+          author: {
+            title: '作者',
+            valueType: 'text',
+            fieldProps: {
+              placeholder: '输入作者名称',
             },
           },
           title: {

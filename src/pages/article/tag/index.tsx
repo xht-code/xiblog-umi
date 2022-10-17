@@ -13,34 +13,24 @@ export default function ArticleTag() {
 
   const columns: TableProps['columns'] = [
     {
-      title: '编号',
-      dataIndex: 'id',
-      search: false,
-    },
-    {
-      title: '搜索类型',
-      dataIndex: 'searchType',
-      valueType: 'radio',
-      initialValue: 'article',
-      valueEnum: {
-        article: { text: '文章标题' },
-        tag: { text: '标签名' },
-        author: { text: '创作者' },
-      },
-      hideInTable: true,
-    },
-    {
       title: '名称',
       dataIndex: 'title',
       fieldProps: {
-        placeholder: '请输入搜索内容',
+        placeholder: '输入文章标题',
       },
       formItemProps: {
-        label: '搜索内容',
-        name: 'searchValue',
+        label: '文章标题',
+        name: 'articleTitle',
       },
       render: (dom, record) => {
         return <Link to={`/article/${record.id}`}>{dom}</Link>
+      },
+    },
+    {
+      title: '作者',
+      dataIndex: ['author', 'nickname'],
+      fieldProps: {
+        placeholder: '输入作者名称',
       },
     },
     {
