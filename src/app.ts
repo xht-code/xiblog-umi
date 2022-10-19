@@ -1,6 +1,8 @@
+import React from 'react'
 import { RequestConfig } from '@umijs/max'
 import { message } from 'antd'
 import { match } from 'path-to-regexp'
+import { ErrorBoundary, ErrorBoundaryProps } from '@sentry/react'
 import { setTitle } from './utils'
 import { IS_PROD } from './utils/env'
 import Storage, { StorageKey } from './utils/storage'
@@ -62,4 +64,11 @@ export function onRouteChange(opts: any) {
   if (currentRoute?.title) {
     setTitle(currentRoute.title)
   }
+}
+
+export function rootContainer(container: JSX.Element) {
+  const props: ErrorBoundaryProps = {
+    showDialog: true,
+  }
+  return React.createElement(ErrorBoundary, props, container)
 }

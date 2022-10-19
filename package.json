@@ -18,6 +18,8 @@
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@ant-design/pro-components": "^1.1.5",
+    "@sentry/react": "^7.15.0",
+    "@sentry/tracing": "^7.15.0",
     "@umijs/max": "4.0.25",
     "ahooks": "^3.4.1",
     "antd": "^4.21.0",
