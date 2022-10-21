@@ -21,7 +21,7 @@ export default [
     component: './article/tag',
   },
   {
-    path: '/article/:articleId',
+    path: '/article/:articleId/:type',
     title: '文章详情',
     component: './article/detail',
   },

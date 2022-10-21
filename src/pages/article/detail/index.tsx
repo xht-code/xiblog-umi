@@ -6,7 +6,7 @@ import ArticleContent from './content'
 import RelatedArticles from './related'
 
 export default function Page() {
-  const { articleId = '' } = useParams()
+  const { articleId = '', type } = useParams()
   const anchorRef = useRef<AnchorRefMethods>(null)
 
   const { isMobile } = useEnv()
@@ -16,13 +16,14 @@ export default function Page() {
       <main className='flex-1 overflow-hidden'>
         <ArticleContent
           articleId={articleId}
+          isPreview={type === 'preview'}
           anchorRef={anchorRef}
           className='sm:p-[30px]'
         />
       </main>
 
       {!isMobile && (
-        <aside className='hidden sm:block ml-[20px] flex-shrink-0 w-[300px]'>
+        <aside className='flex-shrink-0 ml-[20px] w-[300px] hidden sm:block'>
           <RelatedArticles articleId={articleId} className='mb-[20px]' />
           <ArticleAnchor ref={anchorRef} />
         </aside>

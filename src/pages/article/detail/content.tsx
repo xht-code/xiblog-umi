@@ -19,6 +19,7 @@ const ANCHOR_CLASS = 'article-anchor'
 
 interface ArticleContentProps extends LayoutBoxProps {
   articleId: string
+  isPreview?: boolean
   anchorRef: React.RefObject<AnchorRefMethods>
 }
 
@@ -37,6 +38,7 @@ const reRender =
 
 const ArticleContent: FC<ArticleContentProps> = ({
   articleId,
+  isPreview,
   anchorRef,
   ...props
 }) => {
@@ -45,7 +47,7 @@ const ArticleContent: FC<ArticleContentProps> = ({
   const { data, loading } = useRequest(
     {
       method: 'GET',
-      url: `/article/${articleId}`,
+      url: `/article/${articleId}${isPreview ? '/preview' : ''}`,
     },
     {
       refreshDeps: [articleId],
