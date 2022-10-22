@@ -53,7 +53,7 @@ const ArticleAnchor: ForwardRefRenderFunction<
           affix={false}
           showInkInFixed
           targetOffset={84}
-          className='-ml-[12px]'
+          className='-ml-[12px] !max-h-[300px]'
           onClick={(e) => e.nativeEvent.preventDefault()}
         >
           {data.map((anchor) => (
