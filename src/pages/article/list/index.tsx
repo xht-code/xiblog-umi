@@ -117,7 +117,12 @@ export default function Page() {
                 <Divider type='vertical' />
                 {tags.map((item, index) => (
                   <div key={item.id}>
-                    <Link to={`/article/tag/${item.id}`}>{item.name}</Link>
+                    <Link
+                      to={`/article/tag/${item.id}`}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      {item.name}
+                    </Link>
                     {index !== tags.length - 1 && '、'}
                   </div>
                 ))}
