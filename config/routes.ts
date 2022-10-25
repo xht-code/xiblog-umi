@@ -21,8 +21,13 @@ export default [
     component: './article/tag',
   },
   {
-    path: '/article/:articleId/:type',
+    path: '/article/:articleId',
     title: '文章详情',
+    component: './article/detail',
+  },
+  {
+    path: '/article/:articleId/:type',
+    title: '文章预览',
     component: './article/detail',
   },
   {
